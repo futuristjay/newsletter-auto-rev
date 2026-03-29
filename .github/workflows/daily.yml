@@ -91,11 +91,11 @@ jobs:
               sys.exit(1)
           dp = json.dumps(data, ensure_ascii=False)
           print("Asking coal...")
-          coal_text = ask("오늘은 " + DATE_KR + ". 석탄 데이터: " + dp + "\n\n한국어로 답해. 번호만 붙여서:\n1.석탄 헤드라인\n2.인도네시아\n3.중국\n4.인도\n5.전망")
+          coal_text = ask("오늘은 " + DATE_KR + ". 석탄 데이터: " + dp + "\n\n한국어로 답해. 번호만:\n1.석탄 헤드라인\n2.인도네시아\n3.중국\n4.인도\n5.전망")
           print("  Got " + str(len(coal_text)) + " chars")
           time.sleep(5)
           print("Asking sectors...")
-          sector_text = ask("오늘은 " + DATE_KR + ". 데이터: " + dp + "\n\n한국어로 답해. 번호만 붙여서:\n1.구리\n2.우라늄\n3.삼성전자\n4.LS Electric\n5.현대차\n6.K-Beauty\n7.Tesla/테크\n8.매크로")
+          sector_text = ask("오늘은 " + DATE_KR + ". 데이터: " + dp + "\n\n한국어로 답해. 번호만:\n1.구리\n2.우라늄\n3.삼성전자\n4.LS Electric\n5.현대차\n6.K-Beauty\n7.Tesla/테크\n8.매크로")
           print("  Got " + str(len(sector_text)) + " chars")
           def plines(t):
               r = dict()
@@ -119,7 +119,7 @@ jobs:
                   item["date"] = DATE_STR
                   ticker.append(item)
           coal_sec = dict()
-          coal_sec["briefHeadline"] = cl.get(1, "석탄 시장 업데이트")
+          coal_sec["briefHeadline"] = cl.get(1, "update")
           coal_sec["briefText"] = cl.get(1, "")
           coal_sec["countryIndonesia"] = cl.get(2, "")
           coal_sec["countryChina"] = cl.get(3, "")
@@ -138,44 +138,16 @@ jobs:
           newsletter["kBeauty"] = dict(headline=sl.get(6,""), summary=sl.get(6,""))
           newsletter["teslaTech"] = dict(headline=sl.get(7,""), summary=sl.get(7,""))
           newsletter["macro"] = dict(headline=sl.get(8,""), summary=sl.get(8,""))
-          newsletter["miniReport"] = dict(title="오늘의 시장", content=cl.get(1,""))
+          newsletter["miniReport"] = dict(title="today", content=cl.get(1,""))
           os.makedirs("data", exist_ok=True)
           with open("data/newsletter.json", "w", encoding="utf-8") as f:
               json.dump(newsletter, f, ensure_ascii=False, indent=2)
           print("\n=== NEWSLETTER SAVED ===")
+          print("Keys: " + str(list(newsletter.keys())))
           SCRIPT
 
       - name: Build HTML
-        run: |
-          python3 -c "
-          import json, os
-          with open('data/newsletter.json','r',encoding='utf-8') as f:
-              n=json.load(f)
-          h='<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\"><title>Market Intelligence</title>'
-          h+='<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:sans-serif;background:#0d0b09;color:#e2d9ce;padding:20px}.t{font-family:monospace;font-size:16px;color:#ff8a65;font-weight:700;margin-bottom:20px}.s{background:#1a1612;border:1px solid rgba(148,163,184,.1);border-radius:10px;padding:16px;margin-bottom:12px}.h{font-size:15px;color:#faf6f1;margin-bottom:8px}.p{font-size:13px;color:#a8a29e;line-height:1.6}.tk{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}.ti{background:#1a1612;border:1px solid rgba(148,163,184,.1);border-radius:8px;padding:8px 12px;font-family:monospace;font-size:12px}.sec{font-family:monospace;font-size:11px;color:#e64a19;margin:20px 0 10px}</style></head><body>'
-          h+='<div class=\"t\">MARKET INTELLIGENCE</div>'
-          h+='<div style=\"font-family:monospace;font-size:11px;color:#57534e;margin-bottom:20px\">'+n.get('date_kr','')+'</div>'
-          h+='<div class=\"tk\">'
-          for t in n.get('ticker',[]):
-              h+='<div class=\"ti\"><div style=\"color:#57534e;font-size:10px\">'+t.get('label','')+'</div><div style=\"color:#faf6f1;font-weight:600\">'+t.get('value','')+'</div></div>'
-          h+='</div>'
-          c=n.get('coal',{})
-          h+='<div class=\"sec\">COAL</div>'
-          h+='<div class=\"s\"><div class=\"h\">'+c.get('briefHeadline','')+'</div>'
-          h+='<div class=\"p\">ID: '+c.get('countryIndonesia','')+'</div>'
-          h+='<div class=\"p\">CN: '+c.get('countryChina','')+'</div>'
-          h+='<div class=\"p\">IN: '+c.get('countryIndia','')+'</div></div>'
-          for key,icon in [('copper','COPPER'),('uranium','URANIUM'),('samsung','SAMSUNG'),('lsElectric','LS ELECTRIC'),('hyundai','HYUNDAI'),('kBeauty','K-BEAUTY'),('teslaTech','TESLA/TECH'),('macro','MACRO')]:
-              sec=n.get(key,{})
-              h+='<div class=\"s\"><div class=\"h\">'+icon+': '+sec.get('headline','')+'</div><div class=\"p\">'+sec.get('summary','')+'</div></div>'
-          mr=n.get('miniReport',{})
-          h+='<div class=\"sec\">MINI REPORT</div><div class=\"s\"><div class=\"h\">'+mr.get('title','')+'</div><div class=\"p\">'+mr.get('content','')+'</div></div>'
-          h+='<div style=\"text-align:center;padding:20px;font-size:11px;color:#2a2420;font-family:monospace\">MARKET INTELLIGENCE - '+n.get('date_kr','')+'</div></body></html>'
-          os.makedirs('dist',exist_ok=True)
-          with open('dist/index.html','w',encoding='utf-8') as f:
-              f.write(h)
-          print('HTML saved: '+str(len(h))+' bytes')
-          "
+        run: python3 src/build.py
 
       - name: Commit
         run: |
