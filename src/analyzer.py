@@ -1,14 +1,10 @@
 import json, os, sys, urllib.request, time
 
-def call(api_key, prompt, prefill="{", label=""):
-    print(f"  API call: {label}...")
+def ask(api_key, question):
     body = json.dumps({
         "model": "claude-sonnet-4-20250514",
-        "max_tokens": 2048,
-        "messages": [
-            {"role": "user", "content": prompt},
-            {"role": "assistant", "content": prefill}
-        ],
+        "max_tokens": 1024,
+        "messages": [{"role": "user", "content": question}],
     }).encode("utf-8")
     for attempt in range(3):
         try:
@@ -20,71 +16,95 @@ def call(api_key, prompt, prefill="{", label=""):
             )
             with urllib.request.urlopen(req, timeout=90) as r:
                 res = json.loads(r.read().decode("utf-8"))
-            txt = "".join(b.get("text","") for b in res.get("content",[]) if b.get("type")=="text")
-            txt = prefill + txt.strip()
-            if prefill == "[":
-                last = txt.rfind("]")
-                if last > 0: txt = txt[:last+1]
-            else:
-                last = txt.rfind("}")
-                if last > 0: txt = txt[:last+1]
-            result = json.loads(txt)
-            print(f"  OK")
-            return result
+            return "".join(b.get("text","") for b in res.get("content",[]) if b.get("type")=="text").strip()
         except urllib.error.HTTPError as e:
             if e.code == 429:
-                w = 60*(attempt+1)
-                print(f"  429, waiting {w}s...")
-                time.sleep(w)
+                print(f"  429, waiting {60*(attempt+1)}s...")
+                time.sleep(60*(attempt+1))
                 continue
             print(f"  HTTP {e.code}")
             sys.exit(1)
-        except json.JSONDecodeError as e:
-            print(f"  JSON err: {e}")
-            print(f"  Raw: {txt[:400] if txt else 'empty'}")
-            sys.exit(1)
         except Exception as e:
-            print(f"  Err: {e}")
+            print(f"  Error: {e}")
             sys.exit(1)
     sys.exit(1)
 
 def main():
-    print("\n=== Newsletter Gen ===\n")
+    print("\n=== Newsletter Gen v3 ===\n")
     with open("data/raw_data.json","r",encoding="utf-8") as f:
         raw = json.load(f)
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key: print("No key"); sys.exit(1)
-    p = json.dumps(raw.get("prices",{}), ensure_ascii=False)
+
+    prices = raw.get("prices", {})
     dk = raw.get("date_kr","")
     dt = raw.get("date","")
+    p = json.dumps(prices, ensure_ascii=False)
 
-    # 1) Ticker - prefill with [ for array
-    print("Step 1/3: Ticker")
-    ticker = call(api_key,
-        f"오늘:{dk}. 데이터:{p}\n\n위 데이터에서 8개 시세를 JSON 배열로 만들어. 배열만 반환. 다른 텍스트 금지.\n포맷: [{{\"label\":\"뉴캐슬 6000\",\"value\":\"$135/t\",\"change\":\"+1.6%\",\"trend\":\"UP\",\"source\":\"oilpriceapi\",\"date\":\"03/29\"}}]",
-        prefill="[", label="ticker")
-    time.sleep(5)
+    # Build ticker directly from scraped data - NO Claude needed
+    print("Step 1: Building ticker from scraped data...")
+    ticker = []
+    for key, val in prices.items():
+        if val.get("value"):
+            v = val["value"]
+            unit = val.get("unit","")
+            ticker.append({
+                "label": val.get("label", key),
+                "value": f"{unit}{v}" if unit and not str(v).startswith(unit) else str(v),
+                "change": "—",
+                "trend": "STABLE",
+                "source": val.get("source",""),
+                "date": val.get("date","")
+            })
+    print(f"  Ticker: {len(ticker)} items")
 
-    # 2) Coal
-    print("Step 2/3: Coal")
-    coal = call(api_key,
-        f"오늘:{dk}. 데이터:{p}\n\n석탄 시장 분석을 아래 JSON 포맷으로. 한국어. JSON만 반환.\n{{\"briefHeadline\":\"헤드라인\",\"briefText\":\"2문장\",\"articles\":[{{\"title\":\"제목\",\"source\":\"출처\",\"date\":\"MM/DD\",\"summary\":\"1문장\",\"relevance\":\"HIGH\",\"investmentImplication\":\"1문장\"}}],\"countryIndonesia\":\"1문장\",\"countryChina\":\"1문장\",\"countryIndia\":\"1문장\",\"outlook\":[\"전망1\",\"전망2\",\"전망3\"]}}\n기사는 정확히 3개.",
-        prefill="{", label="coal")
-    time.sleep(5)
+    # Ask Claude for SHORT text commentary only - no JSON
+    print("Step 2: Coal commentary...")
+    coal_text = ask(api_key, f"오늘은 {dk}. 석탄 시장 데이터: {p}\n\n한국어로 답해. 아래 5개 항목을 각각 한 줄로, 번호만 붙여서 답해:\n1. 오늘의 석탄 시장 핵심 헤드라인\n2. 인도네시아 동향\n3. 중국 동향\n4. 인도 동향\n5. 향후 1-4주 전망")
+    print(f"  Got {len(coal_text)} chars")
+    time.sleep(3)
 
-    # 3) Others - all other sectors
-    print("Step 3/3: Others")
-    others = call(api_key,
-        f"오늘:{dk}. 데이터:{p}\n\n아래 포맷으로 각 섹터 한줄 요약. 한국어. JSON만.\n{{\"copper\":{{\"headline\":\"요약\",\"summary\":\"2문장\"}},\"uranium\":{{\"headline\":\"요약\",\"summary\":\"2문장\"}},\"samsung\":{{\"headline\":\"요약\",\"summary\":\"2문장\"}},\"lsElectric\":{{\"headline\":\"요약\",\"summary\":\"1문장\"}},\"hyundai\":{{\"headline\":\"요약\",\"summary\":\"1문장\"}},\"kBeauty\":{{\"headline\":\"요약\",\"summary\":\"1문장\"}},\"teslaTech\":{{\"headline\":\"요약\",\"summary\":\"1문장\"}},\"macro\":{{\"headline\":\"요약\",\"summary\":\"2문장\"}},\"miniReport\":{{\"title\":\"이슈제목\",\"content\":\"2문장\"}}}}",
-        prefill="{", label="others")
+    print("Step 3: Other sectors...")
+    other_text = ask(api_key, f"오늘은 {dk}. 시장 데이터: {p}\n\n한국어로 답해. 아래 8개 항목을 각각 한 줄로, 번호만 붙여서 답해:\n1. 구리 시장 요약\n2. 우라늄 시장 요약\n3. 삼성전자/반도체 요약\n4. LS Electric 요약\n5. 현대차 요약\n6. K-Beauty 요약\n7. Tesla/기술주 요약\n8. 매크로/거시경제 요약")
+    print(f"  Got {len(other_text)} chars")
 
-    # Merge
-    newsletter = {"date":dt,"date_kr":dk}
-    newsletter["ticker"] = ticker if isinstance(ticker, list) else []
-    newsletter["coal"] = coal if isinstance(coal, dict) else {}
-    if isinstance(others, dict):
-        for k in ["copper","uranium","samsung","lsElectric","hyundai","kBeauty","teslaTech","macro","miniReport"]:
-            newsletter[k] = others.get(k, {})
+    # Parse numbered lines
+    def parse_lines(text):
+        lines = {}
+        for line in text.split("\n"):
+            line = line.strip()
+            for i in range(1, 10):
+                if line.startswith(f"{i}.") or line.startswith(f"{i})"):
+                    lines[i] = line[2:].strip().lstrip(".").lstrip(")").strip()
+        return lines
+
+    coal_lines = parse_lines(coal_text)
+    other_lines = parse_lines(other_text)
+
+    # Assemble newsletter JSON in Python
+    newsletter = {
+        "date": dt,
+        "date_kr": dk,
+        "ticker": ticker,
+        "coal": {
+            "briefHeadline": coal_lines.get(1, "석탄 시장 업데이트"),
+            "briefText": coal_lines.get(1, ""),
+            "articles": [],
+            "countryIndonesia": coal_lines.get(2, ""),
+            "countryChina": coal_lines.get(3, ""),
+            "countryIndia": coal_lines.get(4, ""),
+            "outlook": [coal_lines.get(5, "")]
+        },
+        "copper": {"headline": other_lines.get(1, ""), "summary": other_lines.get(1, "")},
+        "uranium": {"headline": other_lines.get(2, ""), "summary": other_lines.get(2, "")},
+        "samsung": {"headline": other_lines.get(3, ""), "summary": other_lines.get(3, "")},
+        "lsElectric": {"headline": other_lines.get(4, ""), "summary": other_lines.get(4, "")},
+        "hyundai": {"headline": other_lines.get(5, ""), "summary": other_lines.get(5, "")},
+        "kBeauty": {"headline": other_lines.get(6, ""), "summary": other_lines.get(6, "")},
+        "teslaTech": {"headline": other_lines.get(7, ""), "summary": other_lines.get(7, "")},
+        "macro": {"headline": other_lines.get(8, ""), "summary": other_lines.get(8, "")},
+        "miniReport": {"title": "오늘의 시장", "content": coal_lines.get(1, "") + " " + other_lines.get(8, "")}
+    }
 
     os.makedirs("data", exist_ok=True)
     with open("data/newsletter.json","w",encoding="utf-8") as f:
