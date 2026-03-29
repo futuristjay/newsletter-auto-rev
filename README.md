@@ -1,0 +1,1 @@
+# newsletter-auto-rev
