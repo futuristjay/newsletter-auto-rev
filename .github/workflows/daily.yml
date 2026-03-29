@@ -128,12 +128,12 @@ jobs:
           for t in newsletter.get("ticker",[]):
               html+=f'<div class="ti"><div class="tl">{t["label"]}</div><div class="tv">{t["value"]}</div></div>'
           html+='</div>'
-          c=newsletter.get("coal",{{}})
+          c=newsletter.get("coal",dict())
           html+=f'<div class="sec">⛏ 석탄</div><div class="s"><div class="h">{c.get("briefHeadline","")}</div><div class="p">🇮🇩 {c.get("countryIndonesia","")}</div><div class="p">🇨🇳 {c.get("countryChina","")}</div><div class="p">🇮🇳 {c.get("countryIndia","")}</div><div class="p">📈 {"; ".join(c.get("outlook",[]))}</div></div>'
           for key,icon in [("copper","🔶"),("uranium","☢️"),("samsung","💾"),("lsElectric","⚡"),("hyundai","🚗"),("kBeauty","💄"),("teslaTech","🤖"),("macro","🌐")]:
-              sec=newsletter.get(key,{{}})
+              sec=newsletter.get(key,dict())
               html+=f'<div class="s"><div class="h">{icon} {sec.get("headline","")}</div><div class="p">{sec.get("summary","")}</div></div>'
-          mr=newsletter.get("miniReport",{{}})
+          mr=newsletter.get("miniReport",dict())
           html+=f'<div class="sec">🔥 미니 리포트</div><div class="s"><div class="h">{mr.get("title","")}</div><div class="p">{mr.get("content","")}</div></div>'
           html+=f'<div style="text-align:center;padding:20px;font-size:11px;color:#2a2420;font-family:monospace">MARKET INTELLIGENCE · {newsletter["date_kr"]} · 투자 참고용</div></body></html>'
           os.makedirs("dist",exist_ok=True)
