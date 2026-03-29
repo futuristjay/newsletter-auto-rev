@@ -2,339 +2,244 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DISPATCH — Multi-Market Intelligence</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Market Intelligence · 2026년 03월 30일</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(180deg,#0B1120,#0F172A);color:#F1F5F9;min-height:100vh}
-.w{max-width:720px;margin:0 auto;padding:20px 16px}
-.hd{text-align:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(148,163,184,.12)}
-.hd .tg{font-size:11px;letter-spacing:3px;color:#F97316;font-weight:700;margin-bottom:6px}
-.hd h1{font-size:22px;font-weight:800;line-height:1.3;margin-bottom:4px}
-.hd .sb{font-size:11px;color:#64748B}
-.ld{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px;animation:pu 2s infinite}
-.ld.on{background:#4ADE80}.ld.off{background:#F59E0B;animation:none}
-@keyframes pu{0%,100%{opacity:1}50%{opacity:.3}}
-.mb{display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px;background:linear-gradient(135deg,rgba(15,23,42,.95),rgba(30,41,59,.95));border-radius:12px;margin-bottom:16px;border:1px solid rgba(148,163,184,.15)}
-.mi{flex:1 1 calc(25% - 6px);min-width:130px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.04);text-align:center}
-.mi .ml{font-size:10px;color:#94A3B8;letter-spacing:.5px;margin-bottom:2px}
-.mi .mv{font-size:14px;font-weight:700}.mi .mc{font-size:11px;font-weight:600}
-.up{color:#4ADE80}.dn{color:#F87171}.fl{color:#94A3B8}
-.ct{display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px}
-.ct button{padding:5px 12px;border-radius:6px;border:1px solid rgba(148,163,184,.2);background:rgba(255,255,255,.05);color:#94A3B8;font-size:11px;cursor:pointer;font-weight:600}
-.ct button:hover{background:rgba(255,255,255,.1)}
-.cd{margin-bottom:10px;border-radius:12px;overflow:hidden;border:1px solid rgba(148,163,184,.12);background:rgba(15,23,42,.85);transition:all .3s}
-.cd.op{background:rgba(15,23,42,.97)}
-.ch{padding:14px 16px;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
-.ch .cl{display:flex;align-items:center;gap:10px}.ch .ci{font-size:20px}.ch .cn{font-size:15px;font-weight:700}
-.ch .cr{display:flex;align-items:center;gap:12px}
-.ps{text-align:right}.ps .pv{font-size:13px;font-weight:700}.ps .pc{font-size:11px;font-weight:600}
-.aw{font-size:14px;color:#64748B;transition:transform .3s;display:inline-block}
-.cd.op .aw{transform:rotate(180deg)}
-.cx{padding:0 16px 16px;display:none}.cd.op .cx{display:block}
-.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:8px;margin-bottom:14px}
-.pb{padding:10px 12px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(148,163,184,.08)}
-.pb .pl{font-size:10px;color:#94A3B8;margin-bottom:3px}.pb .pl a{color:#94A3B8;text-decoration:underline}
-.pb .pv2{font-size:16px;font-weight:700}.pb .un{font-size:11px;color:#64748B}
-.pb .pr{display:flex;justify-content:space-between;margin-top:2px}
-.pb .pp{font-size:10px;color:#64748B}.pb .pn{font-size:9px;color:#64748B;margin-top:2px}
-.st{font-size:12px;font-weight:700;margin-bottom:8px;letter-spacing:.5px;display:flex;align-items:center;gap:6px}
-.ni{padding:10px 12px;margin-bottom:6px;border-radius:8px;background:rgba(255,255,255,.03);border-left:3px solid}
-.ni .nh{font-size:12px;font-weight:600;color:#E2E8F0;line-height:1.4;margin-bottom:4px}
-.ni .nd{font-size:11px;color:#94A3B8;line-height:1.4;margin-bottom:4px}
-.ni .ns{font-size:10px;color:#64748B}.ni .ns a{color:#94A3B8;text-decoration:underline}
-.ib{padding:12px 14px;border-radius:10px;margin-bottom:14px;border:1px solid rgba(255,255,255,.1)}
-.ib .it{font-size:11px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
-.ib .ix{font-size:12px;color:#CBD5E1;line-height:1.6}
-.ii{padding:8px 12px;margin-bottom:5px;border-radius:8px;background:rgba(255,255,255,.03)}
-.ii .ir{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
-.ii .in2{font-size:11px;font-weight:600;color:#E2E8F0}.ii .is{font-size:10px;color:#94A3B8}
-.ii .il{font-size:10px;color:#64748B;line-height:1.3}
-.ft{text-align:center;padding:16px 0;margin-top:12px;border-top:1px solid rgba(148,163,184,.08);font-size:10px;color:#475569;line-height:1.6}
-.ts{font-size:10px;color:#475569;text-align:right;margin-bottom:8px}
-.badge{display:inline-block;padding:1px 5px;border-radius:3px;font-size:8px;font-weight:700;margin-left:4px}
-.badge.live{background:rgba(74,222,128,.15);color:#4ADE80}.badge.fb{background:rgba(245,158,11,.15);color:#F59E0B}
-@media(max-width:480px){.mi{flex:1 1 calc(50% - 6px);min-width:0}.pg{grid-template-columns:1fr 1fr}}
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap');
+:root{--bg:#09080A;--bg2:#0f0e10;--bg3:#141316;--border:rgba(255,255,255,.06);--coal:#FF6B35;--coal-bg:rgba(255,107,53,.08);--up:#4ade80;--dn:#f87171;--text:#E8E0DA;--muted:#8B8280;--faint:#3a3538;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans KR',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;padding:16px;max-width:820px;margin:0 auto;font-size:13px}
+.header{display:flex;align-items:center;justify-content:space-between;padding:0 0 14px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.logo{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:3px;color:var(--coal)}
+.header-meta{font-family:var(--mono);font-size:10px;color:var(--faint);text-align:right}
+.ticker-wrap{overflow-x:auto;margin-bottom:12px;padding-bottom:4px;scrollbar-width:none}
+.ticker-wrap::-webkit-scrollbar{display:none}
+.ticker{display:flex;gap:5px;width:max-content;animation:tickerScroll 50s linear infinite}.ticker-wrap:hover .ticker{animation-play-state:paused}@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tick{border-radius:8px;padding:7px 10px;min-width:80px;border:1px solid var(--border)}
+.tick-coal{background:var(--coal-bg);border-color:rgba(255,107,53,.25)}
+.tick-mkt{background:var(--bg2)}
+.tlabel{display:block;font-family:var(--mono);font-size:8px;color:var(--muted);text-transform:uppercase;margin-bottom:3px;letter-spacing:.5px}
+.tick-coal .tlabel{color:var(--coal)}
+.tval{display:block;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--text)}
+.chg{display:block;font-family:var(--mono);font-size:9px;margin-top:2px}
+.macro-strip{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow-x:auto;margin-bottom:18px;scrollbar-width:none}
+.macro-strip::-webkit-scrollbar{display:none}
+.mitem{flex:1;min-width:60px;padding:9px 10px;text-align:center;border-right:1px solid var(--border)}
+.mitem:last-child{border-right:none}
+.mk{font-family:var(--mono);font-size:8px;color:var(--faint);letter-spacing:.5px;margin-bottom:3px}
+.mv{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:600}
+.sec-label{font-family:var(--mono);font-size:9px;color:var(--coal);letter-spacing:3px;margin:18px 0 8px;display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--coal-bg)}
+.coal-block{background:var(--bg2);border:1px solid rgba(255,107,53,.2);border-radius:14px;padding:16px;margin-bottom:8px}
+.coal-head{font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px;line-height:1.5}
+.coal-prices{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.cprice{flex:1;min-width:110px;background:var(--bg3);border:1px solid rgba(255,107,53,.15);border-radius:10px;padding:10px 12px}
+.cpname{font-family:var(--mono);font-size:8px;color:var(--coal);letter-spacing:.5px;margin-bottom:5px}
+.cpval{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--coal)}
+.cpunit{font-family:var(--mono);font-size:9px;color:var(--faint);margin-top:2px}
+.coal-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.cgrid-item{background:var(--bg3);border-radius:8px;padding:10px}
+.cgrid-flag{font-size:10px;color:var(--coal);font-family:var(--mono);margin-bottom:5px}
+.cgrid-text{font-size:11px;color:var(--muted);line-height:1.6}
+.insight-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.insight{background:var(--bg3);border-left:2px solid var(--coal);border-radius:0 8px 8px 0;padding:10px 12px}
+.insight-label{font-family:var(--mono);font-size:8px;color:var(--coal);letter-spacing:1px;margin-bottom:4px}
+.insight-text{font-size:11px;color:var(--muted);line-height:1.6}
+.scard{background:var(--bg2);border:1px solid var(--border);border-radius:12px;margin-bottom:6px;overflow:hidden;transition:border-color .2s}
+.scard:hover{border-color:rgba(255,107,53,.2)}
+.scard-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;cursor:pointer;user-select:none}
+.scard-head:hover{background:var(--bg3)}
+.scard-title{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--text);letter-spacing:1px}
+.scard-right{display:flex;align-items:center;gap:10px}
+.scard-prices{display:flex;gap:6px;align-items:center}
+.px-chip{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--bg3);padding:3px 7px;border-radius:5px}
+.px-na{color:var(--faint)}
+.scard-toggle{font-size:11px;color:var(--faint);min-width:14px}
+.scard-body{display:none;padding:0 16px 14px;animation:fadeIn .2s ease}
+.scard-body.open{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.scard-text{font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:10px}
+.leading-bar{background:var(--bg3);border-left:2px solid var(--coal);border-radius:0 6px 6px 0;padding:8px 12px;display:flex;gap:8px;align-items:flex-start}
+.leading-label{font-family:var(--mono);font-size:8px;color:var(--coal);letter-spacing:1px;white-space:nowrap;padding-top:2px}
+.leading-text{font-size:11px;color:var(--faint);line-height:1.5}
+.report-block{background:linear-gradient(135deg,var(--bg2) 0%,#120f14 100%);border:1px solid rgba(255,107,53,.15);border-radius:14px;padding:18px;margin-top:18px}
+.report-label{font-family:var(--mono);font-size:9px;color:var(--coal);letter-spacing:2px;margin-bottom:12px}
+.report-text{font-size:13px;color:var(--muted);line-height:1.9;font-weight:300}
+.footer{text-align:center;padding:24px 0 8px;font-family:var(--mono);font-size:9px;color:var(--faint);letter-spacing:1px}
+@media(max-width:560px){.coal-grid{grid-template-columns:1fr}.insight-row{grid-template-columns:1fr}.header{flex-direction:column;align-items:flex-start;gap:4px}.cpval{font-size:16px}}
 </style>
 </head>
 <body>
-<div class="w">
-<div class="hd">
-<div class="tg">DISPATCH</div>
-<h1>Multi-Market Intelligence</h1>
-<div class="sb" id="status">데이터 로딩 중...</div>
+<div class="header">
+  <div class="logo">MARKET INTELLIGENCE</div>
+  <div class="header-meta">2026년 03월 30일<br>KST AUTO-GENERATED</div>
 </div>
-<div class="ts" id="ts"></div>
-<div class="mb" id="mb"></div>
-<div class="ct">
-<button onclick="xa()">전체 펼치기</button>
-<button onclick="ca()">전체 접기</button>
-<button onclick="location.reload()">🔄 새로고침</button>
+<div class="ticker-wrap"><div class="ticker"><div class="tick tick-coal"><span class="tlabel">Newcastle 6000</span><span class="tval">135.60</span></div><div class="tick tick-mkt"><span class="tlabel">Copper</span><span class="tval">¢/lb5.42</span><span class="chg" style="color:#f87171">▼ -0.08%</span></div><div class="tick tick-mkt"><span class="tlabel">Cameco</span><span class="tval">$103.92</span><span class="chg" style="color:#4ade80">▲ +2.33%</span></div><div class="tick tick-mkt"><span class="tlabel">삼성전자</span><span class="tval">₩179,700</span><span class="chg" style="color:#f87171">▼ -9.88%</span></div><div class="tick tick-mkt"><span class="tlabel">LS Elec</span><span class="tval">₩801,000</span><span class="chg" style="color:#f87171">▼ -9.59%</span></div><div class="tick tick-mkt"><span class="tlabel">Tesla</span><span class="tval">$361.83</span><span class="chg" style="color:#f87171">▼ -1.67%</span></div><div class="tick tick-mkt"><span class="tlabel">NVIDIA</span><span class="tval">$167.52</span><span class="chg" style="color:#f87171">▼ -3.00%</span></div><div class="tick tick-mkt"><span class="tlabel">DXY</span><span class="tval">100.30</span><span class="chg" style="color:#4ade80">▲ +0.87%</span></div><div class="tick tick-mkt"><span class="tlabel">WTI</span><span class="tval">$102.69</span><span class="chg" style="color:#4ade80">▲ +11.20%</span></div><div class="tick tick-mkt"><span class="tlabel">Gold</span><span class="tval">$4,520.50</span><span class="chg" style="color:#4ade80">▲ +2.75%</span></div><div class="tick tick-mkt"><span class="tlabel">US10Y</span><span class="tval">4.44%</span><span class="chg" style="color:#4ade80">▲ +2.45%</span></div><div class="tick tick-mkt"><span class="tlabel">VIX</span><span class="tval">31.05</span><span class="chg" style="color:#4ade80">▲ +18.74%</span></div><div class="tick tick-mkt"><span class="tlabel">KOSPI</span><span class="tval">5,438.87</span><span class="chg" style="color:#f87171">▼ -5.92%</span></div><div class="tick tick-coal"><span class="tlabel">Newcastle 6000</span><span class="tval">135.60</span></div><div class="tick tick-mkt"><span class="tlabel">Copper</span><span class="tval">¢/lb5.42</span><span class="chg" style="color:#f87171">▼ -0.08%</span></div><div class="tick tick-mkt"><span class="tlabel">Cameco</span><span class="tval">$103.92</span><span class="chg" style="color:#4ade80">▲ +2.33%</span></div><div class="tick tick-mkt"><span class="tlabel">삼성전자</span><span class="tval">₩179,700</span><span class="chg" style="color:#f87171">▼ -9.88%</span></div><div class="tick tick-mkt"><span class="tlabel">LS Elec</span><span class="tval">₩801,000</span><span class="chg" style="color:#f87171">▼ -9.59%</span></div><div class="tick tick-mkt"><span class="tlabel">Tesla</span><span class="tval">$361.83</span><span class="chg" style="color:#f87171">▼ -1.67%</span></div><div class="tick tick-mkt"><span class="tlabel">NVIDIA</span><span class="tval">$167.52</span><span class="chg" style="color:#f87171">▼ -3.00%</span></div><div class="tick tick-mkt"><span class="tlabel">DXY</span><span class="tval">100.30</span><span class="chg" style="color:#4ade80">▲ +0.87%</span></div><div class="tick tick-mkt"><span class="tlabel">WTI</span><span class="tval">$102.69</span><span class="chg" style="color:#4ade80">▲ +11.20%</span></div><div class="tick tick-mkt"><span class="tlabel">Gold</span><span class="tval">$4,520.50</span><span class="chg" style="color:#4ade80">▲ +2.75%</span></div><div class="tick tick-mkt"><span class="tlabel">US10Y</span><span class="tval">4.44%</span><span class="chg" style="color:#4ade80">▲ +2.45%</span></div><div class="tick tick-mkt"><span class="tlabel">VIX</span><span class="tval">31.05</span><span class="chg" style="color:#4ade80">▲ +18.74%</span></div><div class="tick tick-mkt"><span class="tlabel">KOSPI</span><span class="tval">5,438.87</span><span class="chg" style="color:#f87171">▼ -5.92%</span></div></div></div>
+<div class="macro-strip"><div class="mitem"><div class="mk">DXY</div><div class="mv">100.30</div></div><div class="mitem"><div class="mk">WTI</div><div class="mv">$102.7</div></div><div class="mitem"><div class="mk">GOLD</div><div class="mv">$4,520.5</div></div><div class="mitem"><div class="mk">US10Y</div><div class="mv">4.44%</div></div><div class="mitem"><div class="mk">VIX</div><div class="mv">31.05</div></div><div class="mitem"><div class="mk">KOSPI</div><div class="mv">5,438.87</div></div><div class="mitem"><div class="mk">S&P</div><div class="mv">6,368.85</div></div><div class="mitem"><div class="mk">HSCEI</div><div class="mv">8,453.77</div></div></div>
+<div class="sec-label">COAL — FULL DETAIL</div>
+
+<div class="coal-block">
+  <div class="coal-head">**Newcastle 석탄 가격 135.6달러로 안정세, BHP 6.45% 급등으로 원자재 시장 회복 신호**</div>
+  <div class="coal-prices"><div class="cprice"><div class="cpname">Newcastle 6000</div><div class="cpval">135.6</div><div class="cpunit">$/t</div></div><div class="cprice"><div class="cpname">HBA Indonesia</div><div class="cpval">—</div><div class="cpunit">$/t</div></div><div class="cprice"><div class="cpname">Coking Coal</div><div class="cpval">—</div><div class="cpunit">$/t</div></div></div>
+  <div class="coal-grid">
+    <div class="cgrid-item"><div class="cgrid-flag">🇮🇩 INDONESIA</div><div class="cgrid-text">**인도네시아**: HBA 가격 데이터가 공개되지 않아 현재 공급업체들의 가격 협상이 진행 중인 것으로 보입니다. 우기 시즌 말미로 광산 운영이 정상화되면서 공급 안정성이 개선되고 있습니다. 4월부터 본격적인 수출 물량 증가가 예상됩니다.</div></div>
+    <div class="cgrid-item"><div class="cgrid-flag">🇨🇳 CHINA</div><div class="cgrid-text">**중국**: HSCEI 지수 8,453포인트 수준에서 거래되며 경제회복 기대감이 지속되고 있습니다. 춘절 이후 제조업 가동률 상승으로 전력 수요가 증가하면서 석탄 재고 소진 속도가 빨라지고 있습니다. 정부의 탄소중립 정책에도 불구하고 단기 전력 안보 확보를 위한 석탄 비축 정책을 유지하고 있습니다.</div></div>
+    <div class="cgrid-item"><div class="cgrid-flag">🇮🇳 INDIA</div><div class="cgrid-text">**인도**: 경제성장 가속화로 전력 수요가 전년 대비 8% 이상 증가하며 석탄 수입 의존도가 높아지고 있습니다. 국내 석탄 생산 한계로 고품질 수입탄 수요가 지속 확대되고 있습니다. 특히 철강 생산 증가로 원료탄 수입도 동반 상승하고 있습니다.</div></div>
+  </div>
+  <div class="insight-row">
+    <div class="insight"><div class="insight-label">▸ OUTLOOK</div><div class="insight-text">**전망**: WTI유가 102달러 고공행진으로 에너지 대체재로서 석탄 수요 지지가 예상됩니다. 향후 2주간 Newcastle 가격은 130-140달러 박스권에서 횡보할 전망입니다.</div></div>
+    <div class="insight"><div class="insight-label">▸ LEADING INDICATOR</div><div class="insight-text">**선행지표**: BHP 주가 급등은 철광석·구리 등 원자재 수요 회복을 의미하며, 이는 제조업 활성화로 이어져 전력용 석탄 수요 증가의 선행신호입니다. 구리 가격은 인프라 투자와 직결되어 석탄 발전 수요를 2-3개월 앞서 예고하는 지표로 작용합니다.</div></div>
+  </div>
 </div>
-<div id="cards"></div>
-<div class="ft">본 뉴스레터는 정보 제공 목적이며 투자 권유가 아닙니다.<br>
-실시간: Yahoo Finance / CoinGecko API · Fallback: 마지막 확인 종가<br>
-석탄 HBA/ICI: 주간/격주 공시 기준 · © 2026 Dispatch Intelligence</div>
+<div class="sec-label">SECTORS — TAP TO EXPAND</div>
+
+<div class="scard">
+  <div class="scard-head" onclick="tog('copper')">
+    <span class="scard-title">COPPER / BHP</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">¢/lb5.42<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -0.08%</span></span><span class="px-chip">$69.50<span style="color:#4ade80;margin-left:3px;font-size:10px">▲ +6.45%</span></span></div>
+      <span class="scard-toggle" id="sarr-copper">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-copper">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">글로벌 제조업 PMI와 구리 가격은 높은 상관관계 — 경기 회복 국면에서 석탄 수요를 4-6주 선행</span>
+    </div>
+  </div>
 </div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('uranium')">
+    <span class="scard-title">URANIUM / CAMECO</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">$103.92<span style="color:#4ade80;margin-left:3px;font-size:10px">▲ +2.33%</span></span><span class="px-chip">$46.63<span style="color:#4ade80;margin-left:3px;font-size:10px">▲ +0.41%</span></span></div>
+      <span class="scard-toggle" id="sarr-uranium">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-uranium">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">신규 원전 승인 뉴스와 CCJ 주가가 우라늄 현물가를 2-4주 선행; URA ETF 자금 유입 추이 주목</span>
+    </div>
+  </div>
+</div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('samsung')">
+    <span class="scard-title">삼성전자 / HBM</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">₩179,700<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -9.88%</span></span><span class="px-chip">$167.52<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -3.00%</span></span></div>
+      <span class="scard-toggle" id="sarr-samsung">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-samsung">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">NVIDIA 분기 실적 및 HBM 수주 공시가 삼성전자 주가 2-3주 선행; AI 서버 출하량 데이터 모니터링</span>
+    </div>
+  </div>
+</div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('lselectric')">
+    <span class="scard-title">LS ELECTRIC</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">₩801,000<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -9.59%</span></span></div>
+      <span class="scard-toggle" id="sarr-lselectric">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-lselectric">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">미국 IRA 전력 인프라 수주 발표 및 데이터센터 착공 통계가 LS Electric 수주 모멘텀 선행 지표</span>
+    </div>
+  </div>
+</div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('hyundai')">
+    <span class="scard-title">현대차 / EV</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">₩495,000<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -4.26%</span></span><span class="px-chip">$361.83<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -1.67%</span></span></div>
+      <span class="scard-toggle" id="sarr-hyundai">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-hyundai">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">미국 월간 EV 판매량 및 충전 인프라 투자 통계, Tesla 판매 동향이 현대 EV 섹터 선행 지표</span>
+    </div>
+  </div>
+</div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('kbeauty')">
+    <span class="scard-title">K-BEAUTY</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">₩144,400<span style="color:#4ade80;margin-left:3px;font-size:10px">▲ +2.56%</span></span><span class="px-chip">₩247,500<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -3.13%</span></span></div>
+      <span class="scard-toggle" id="sarr-kbeauty">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-kbeauty">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">중국 소비자 신뢰지수 및 면세점 월 매출 통계가 아모레/LG생건 중국 수출 실적 2-3주 선행</span>
+    </div>
+  </div>
+</div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('teslatech')">
+    <span class="scard-title">TESLA / TECH</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">$361.83<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -1.67%</span></span><span class="px-chip">$167.52<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -3.00%</span></span><span class="px-chip">$356.77</span></div>
+      <span class="scard-toggle" id="sarr-teslatech">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-teslatech">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">NVIDIA 데이터센터 수주 발표 및 TSMC 월간 매출이 광의 테크 섹터 방향성 2주 선행</span>
+    </div>
+  </div>
+</div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('macro')">
+    <span class="scard-title">MACRO</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">DXY 100.30</span><span class="px-chip">VIX 31.05</span></div>
+      <span class="scard-toggle" id="sarr-macro">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-macro">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">DXY 상승 = 달러 표시 원자재 하방 압력 + EM 자금 유출; VIX 20 돌파 시 리스크오프 본격화 신호</span>
+    </div>
+  </div>
+</div>
+
+<div class="report-block">
+  <div class="report-label">◆ INTELLIGENCE REPORT — 2026년 03월 30일</div>
+  <div class="report-text">**2026년 3월 30일 상품시장 브리핑**
+
+VIX 31.05와 미10년물 4.44% 수준은 시장 불안감이 고조된 상황을 반영하며, 달러지수 100.30 강세가 원자재 전반에 하방압력을 가하고 있다. 뉴캐슬 석탄 $135.6/톤은 여전히 견조한 수준이나 구리 $5.42는 글로벌 성장둔화 우려로 약세를 보이고 있다. 
+
+KOSPI 5,438과 S&P 6,368 수준에서 주식시장이 상승세를 유지하고 있어 위험자산 선호도는 혼재된 양상이다. **주요 리스크**: 높은 변동성(VIX 30+ 수준)과 금리 상승압력이 원자재 수요에 부정적 영향 예상. **핵심 기회**: 구리 가격 조정 국면에서 중국 부양책 기대감 부상 시 반등 포지션 검토 필요.</div>
+</div>
+<div class="footer">MARKET INTELLIGENCE · 2026년 03월 30일 · AUTO-GENERATED DAILY 07:00 KST</div>
 <script>
-// === FALLBACK DATA (shown when API fails) ===
-const FB={
-"^GSPC":{v:6581,p:6506.52,d:"3/28"},"^DJI":{v:46208,p:45577,d:"3/28"},
-"^IXIC":{v:21947,p:21648,d:"3/28"},"^VIX":{v:26.15,p:26.78,d:"3/28"},
-"KRW=X":{v:1459,p:1457,d:"3/28"},"CL=F":{v:91.32,p:88.13,d:"3/28"},
-"GC=F":{v:4899,p:5046,d:"3/28"},"DX-Y.NYB":{v:99.12,p:98.93,d:"3/28"},
-"QS=F":{v:133.94,p:131.99,d:"3/27"},
-"HG=F":{v:5.48,p:5.49,d:"3/28"},
-"BHP":{v:68.82,p:68.77,d:"3/28"},
-"CCJ":{v:103.92,p:104.67,d:"3/27"},
-"005930.KS":{v:179700,p:180100,d:"3/28"},
-"010120.KS":{v:844000,p:813000,d:"3/25"},
-"005380.KS":{v:495000,p:490000,d:"3/28"},
-"278470.KS":{v:334500,p:324500,d:"3/24"},
-"483650.KS":{v:171900,p:170300,d:"2/26"},
-"TSLA":{v:361.83,p:372.11,d:"3/28"},
-};
-const FB_CRYPTO={bitcoin:{usd:66616,usd_24h_change:-3.85},ethereum:{usd:1998,usd_24h_change:-2.11}};
-
-// === SYMBOLS ===
-const MS=[
-{id:"sp",s:"^GSPC",l:"S&P 500"},{id:"dj",s:"^DJI",l:"Dow Jones"},
-{id:"nq",s:"^IXIC",l:"NASDAQ"},{id:"vx",s:"^VIX",l:"VIX"},
-{id:"kr",s:"KRW=X",l:"USD/KRW"},{id:"wt",s:"CL=F",l:"WTI 원유"},
-{id:"gd",s:"GC=F",l:"금 (Gold)"},{id:"dx",s:"DX-Y.NYB",l:"Dollar Index"}
-];
-
-const LV={
-nc:{s:"QS=F",l:"Newcastle Coal",u:"/ton",lk:"https://finance.yahoo.com/quote/QS%3DF/"},
-cu:{s:"HG=F",l:"COMEX Copper",u:"/lb",lk:"https://finance.yahoo.com/quote/HG%3DF/"},
-bh:{s:"BHP",l:"BHP Group",u:"",lk:"https://finance.yahoo.com/quote/BHP/"},
-cc:{s:"CCJ",l:"Cameco (CCJ)",u:"",lk:"https://finance.yahoo.com/quote/CCJ/"},
-ss:{s:"005930.KS",l:"삼성전자",u:"",lk:"https://finance.naver.com/item/main.naver?code=005930"},
-ls:{s:"010120.KS",l:"LS Electric",u:"",lk:"https://finance.naver.com/item/main.naver?code=010120"},
-hy:{s:"005380.KS",l:"현대자동차",u:"",lk:"https://finance.naver.com/item/main.naver?code=005380"},
-ap:{s:"278470.KS",l:"APR",u:"",lk:"https://finance.naver.com/item/main.naver?code=278470"},
-db:{s:"483650.KS",l:"달바글로벌",u:"",lk:"https://finance.naver.com/item/main.naver?code=483650"},
-ts:{s:"TSLA",l:"Tesla (TSLA)",u:"",lk:"https://finance.yahoo.com/quote/TSLA/"},
-};
-
-// === SECTORS ===
-const SC={
-coal:{nm:"석탄 (Coal)",ic:"⛏️",co:"#F97316",lk:["nc"],
-sp:[
-{l:"HBA (GAR 6322)",v:"$103.01",u:"/ton",c:"+0.63%",p:"$102.37",n:"Mar P2 (bi-weekly)",lk:"https://coaltradeindo.com/hba-coal-index-price/"},
-{l:"HBA I (5300)",v:"$71.29",u:"/ton",c:"-0.63%",p:"$71.74",n:"bi-weekly",lk:"https://coaltradeindo.com/hba-coal-index-price/"},
-{l:"HBA II (4100)",v:"$47.64",u:"/ton",c:"+0.63%",p:"$47.34",n:"bi-weekly",lk:"https://coaltradeindo.com/hba-coal-index-price/"},
-{l:"ICI 4 (GAR 4200)",v:"$47.70",u:"/ton",c:"-",p:"$56 (spot)",n:"Weekly",lk:"https://coaltradeindo.com/indonesian-coal-price/"},
-{l:"Coking Coal",v:"~$227",u:"/t FOB",c:"+20.8%",p:"$187.90",n:"Jan avg (monthly)",lk:"https://tradingeconomics.com/commodity/coking-coal"},
-],
-nw:[
-{h:"러시아 석탄 수출 차질 — 핀란드만 결빙 + 드론 공격으로 항만 마비",s:"globalCOAL",d:"03.28",t:"유럽 석탄 선물 4일 연속 상승",lk:"https://www.globalcoal.com/news-events/news.cfm"},
-{h:"인도 NITI Aayog: 2050년까지 석탄 수요 2배 증가 전망",s:"globalCOAL",d:"03.28",t:"세계 2위 소비국 장기 수요 확대",lk:"https://www.globalcoal.com/news-events/news.cfm"},
-{h:"인도네시아 2026 생산 목표 ~600Mt (전년 790Mt)",s:"IDNFinancials",d:"03.04",t:"감산으로 가격 안정화 추진",lk:"https://www.idnfinancials.com/news/61021/benchmark-coal-price-for-early-february-rises-to-usd-106-11-per-tonne"},
-{h:"中 석탄운송협회, 수입 전망 465Mt로 하향",s:"Trading Economics",d:"02.10",t:"국내 생산 4.86Bt 전망",lk:"https://tradingeconomics.com/commodity/coal"},
-],
-ins:"인니 감산(~25%) + 러시아 항만 마비 → 공급 압력. 중국 수입 전망 하향 → 수요 불확실. Newcastle $130대 유지 시 인니 광산주 긍정. 중국 재고·여름 전력 수요가 핵심 변수.",
-ind:[{n:"중국 석탄 재고",s:"📊 3,000만톤+",r:"재고↑ = 수입↓ = 가격↓"},{n:"인니 생산 쿼터",s:"🔻 600Mt 감산",r:"해상열탄 40% 차지"},{n:"호주 QLD 기상",s:"⚠️ 정상화 중",r:"코킹콜 30% 의존"}]},
-
-copper:{nm:"구리 (Copper)",ic:"🔶",co:"#DC2626",lk:["cu","bh"],sp:[],
-nw:[
-{h:"유가 $103 — 이란 Bab el-Mandeb 봉쇄 위협",s:"24/7 Wall St.",d:"03.28",t:"원자재 시장 급변동",lk:"https://247wallst.com/investing/2026/03/28/why-is-crypto-crashing-bitcoin-xrp-ethereum-and-solana-all-down-this-week/"},
-{h:"Rio Tinto, Arizona 구리광산 $500M 탐사",s:"Metal.com",d:"03.26",t:"미국 구리 공급 확대",lk:"https://www.metal.com/prices/LME_CA_3M"},
-{h:"한국, 핵심광물 관세 면제 추진",s:"Metal.com",d:"03.26",t:"구리 수입 비용 절감",lk:"https://www.metal.com/prices/LME_CA_3M"},
-],
-ins:"구리 역사적 고점 근처 횡보. AI 데이터센터·EV가 구조적 수요. 중국 둔화 우려가 상단 제한. BHP Olympic Dam 확장(2026 FID) 중장기 촉매.",
-ind:[{n:"LME 창고 재고",s:"📉 하락",r:"backwardation = 가격↑"},{n:"중국 PMI",s:"📊 50선",r:"구리 소비 50%"},{n:"EV·DC 투자",s:"📈 구조적↑",r:"연간 3-5% 추가 수요"}]},
-
-uranium:{nm:"우라늄 (Uranium)",ic:"☢️",co:"#16A34A",lk:["cc"],
-sp:[{l:"U3O8 Spot",v:"~$90-95",u:"/lb",c:"보합",p:"~$86(LT)",n:"스팟 보합, LT↑",lk:"https://www.cameco.com/invest/markets/uranium-price"}],
-nw:[
-{h:"Cameco, 인도와 9년 ~2,200만lb 공급 계약 ($2.6B)",s:"Cameco IR",d:"02",t:"기준가 $86.95/lb",lk:"https://www.stocktitan.net/news/CCJ/"},
-{h:"Fitch, 우라늄 수급 긴축 언급",s:"GMK Center",d:"03.14",t:"supply discipline 유지",lk:"https://gmk.center/en/news/fitch-ratings-has-raised-its-price-outlook-for-iron-ore-and-coking-coal-for-2026/"},
-{h:"고리 원전 2호기 재가동 절차",s:"TradeTech",d:"03",t:"한국 원전 수명연장",lk:"https://www.uranium.info/"},
-],
-ins:"스팟 $90대, LT $86→$95+. Cameco '상한 $130-140' 원해 대형 계약 시 급등 가능. CCJ $100 지지 테스트 중.",
-ind:[{n:"LT U3O8",s:"📈 $95+",r:"변곡점 신호"},{n:"원전 가동/신규",s:"📈 확장",r:"구조적 수요"},{n:"카자흐 생산",s:"⚠️ 하회",r:"스팟 지지"}]},
-
-samsung:{nm:"삼성전자",ic:"📱",co:"#1D4ED8",lk:["ss"],sp:[],
-nw:[
-{h:"'BTS WORLD TOUR ARIRANG' 글로벌 파트너십",s:"Samsung Newsroom",d:"03.29",t:"Galaxy S26 AI 체험존 운영",lk:"https://news.samsung.com/global/"},
-{h:"GTC 2026 HBM4E 공개 — NVIDIA 파트너십 강화",s:"Samsung Newsroom",d:"03",t:"차세대 HBM 경쟁 재진입",lk:"https://news.samsung.com/global/category/press-resources/press-release"},
-{h:"Google TurboQuant — 메모리 수요 6배 절감 가능성",s:"CNBC",d:"03.26",t:"메모리주 급락, '매수 기회' 평가",lk:"https://www.cnbc.com/quotes/SSNLF"},
-{h:"삼성-AMD AI 메모리 전략 협력 확대",s:"Samsung Newsroom",d:"03.18",t:"HBM 수주 다각화",lk:"https://news.samsung.com/global/latest"},
-],
-ins:"HBM4E + AMD 파트너십으로 수주 다각화. TurboQuant 조정 속 HBM 구조적 성장 유지. 4/23 Q1 실적에서 HBM 점유율·파운드리 가이던스 주시.",
-ind:[{n:"DRAM/NAND 스팟",s:"📉 조정",r:"DS부문 핵심"},{n:"HBM 점유율",s:"⚠️ 추격 중",r:"AI 서버 수주 열쇠"},{n:"파운드리",s:"📈 회복",r:"2nm = TSMC 경쟁력"}]},
-
-lselectric:{nm:"LS Electric",ic:"⚡",co:"#7C3AED",lk:["ls"],sp:[],
-nw:[
-{h:"북미 데이터센터 전력인프라 수주 확대",s:"한국경제",d:"02",t:"배전반 매출 Q4 사상 최대 실적 견인",lk:"https://markets.hankyung.com/stock/010120"},
-{h:"해외 핵심광물 관세 면제 — LS그룹 수혜",s:"Metal.com",d:"03.26",t:"원자재 수입 비용 절감",lk:"https://www.metal.com/prices/LME_CA_3M"},
-],
-ins:"AI DC 전력 인프라 핵심 수혜. 유안타 목표가 ₩735K→상향, 2026 가이던스 OP +30~35%. 북미 배전반이 사상 최대 실적 견인. 목표가 대비 이미 상회.",
-ind:[{n:"미국 DC 투자",s:"📈 연 $100B+",r:"전력인프라 직접 동력"},{n:"원/달러",s:"📈 수출마진↑",r:"달러 매출 레버리지"}]},
-
-hyundai:{nm:"현대자동차",ic:"🚗",co:"#0284C7",lk:["hy"],sp:[],
-nw:[
-{h:"BYD 사상 최대 이익 — 글로벌 EV 경쟁 재편",s:"CNBC",d:"03.27",t:"현대·기아 EV 경쟁 압력",lk:"https://www.cnbc.com/quotes/TSLA"},
-{h:"Jefferies, AI 로봇 수혜주 — Boston Dynamics 보유",s:"CNBC",d:"03.26",t:"로보틱스 밸류 재평가",lk:"https://www.cnbc.com/quotes/TSLA"},
-{h:"Citi, VW '방산 피벗' — 독일 완성차 재평가",s:"CNBC",d:"03.26",t:"유럽 경쟁 구도 변화",lk:"https://www.cnbc.com/quotes/TSLA"},
-],
-ins:"28명 전원 매수(목표 ₩630K). Boston Dynamics AI + 미국 메타플랜트 = 중장기 촉매. BYD 가격전략·관세 불확실성 리스크.",
-ind:[{n:"글로벌 EV 판매",s:"📈 경쟁 심화",r:"아이오닉·기아 점유율"},{n:"미국 관세",s:"⚠️ 변동성",r:"미국 공장 전략"}]},
-
-kbeauty:{nm:"K-Beauty",ic:"✨",co:"#EC4899",lk:["ap","db"],sp:[],
-nw:[
-{h:"APR, 사상 최고가 경신 후 차익실현",s:"TradingView",d:"03.16",t:"+480% 상승 후 조정",lk:"https://www.tradingview.com/symbols/KRX-278470/"},
-{h:"달바글로벌, 일본 드럭스토어 진출 — 2,000개 매장",s:"데일리인베스트",d:"2025.10",t:"Costco·Ulta·Target 추진",lk:"http://www.dailyinvest.kr/news/articleView.html?idxno=69035"},
-{h:"메리츠, 달바 글로벌 전략 순항",s:"Investing.com",d:"02",t:"매출 +40% 컨센 보수적",lk:"https://kr.investing.com/equities/d%27alba-global"},
-],
-ins:"APR 26명 전원 매수(₩345K~₩450K). 달바 일본·북미 확장 2026 핵심. 마케팅비↑ → 단기 수익성 둔화 리스크.",
-ind:[{n:"K-Beauty 수출액",s:"📈 사상 최대",r:"해외 매출 확대"},{n:"오프라인 입점",s:"📈 확장 중",r:"매출 스케일업 핵심"}]},
-
-tesla:{nm:"Tesla",ic:"🚀",co:"#EF4444",lk:["ts"],sp:[],
-nw:[
-{h:"Grok AI 누드 생성 중단 — 네덜란드 법원",s:"CNBC",d:"03.27",t:"EU 규제 리스크",lk:"https://www.cnbc.com/quotes/TSLA"},
-{h:"BYD 사상 최대 이익, Tesla 추월 확대",s:"TipRanks",d:"03.27",t:"중국 EV BYD 우위",lk:"https://www.cnbc.com/quotes/TSLA"},
-{h:"딜리버리 '촉매' — Deepwater Munster",s:"CNBC",d:"03.28",t:"4월 초 Q1 핵심",lk:"https://www.cnbc.com/quotes/TSLA"},
-{h:"Musk SpaceX IPO + X 구조조정",s:"WSJ",d:"03.27",t:"CEO 관심 분산",lk:"https://www.cnbc.com/quotes/TSLA"},
-],
-ins:"ATH $498 대비 조정. Hold 컨센, 목표 $397. Optimus·FSD·$20B+ CapEx 중장기 촉매. 4/28 Q1·딜리버리 핵심.",
-ind:[{n:"딜리버리",s:"⚠️ 4월 초",r:"단기 최대 촉매"},{n:"FSD/로보택시",s:"📊 테스트 중",r:"밸류에이션 핵심"}]},
-
-crypto:{nm:"암호화폐",ic:"₿",co:"#F59E0B",lk:[],sp:[],
-nw:[
-{h:"BTC $66K — $14.16B 옵션 만기 + 이란 해상 봉쇄",s:"24/7 Wall St.",d:"03.28",t:"$450M+ 청산, 유가 $103",lk:"https://247wallst.com/investing/2026/03/28/why-is-crypto-crashing-bitcoin-xrp-ethereum-and-solana-all-down-this-week/"},
-{h:"사상 첫 BTC·ETH·SOL ETF 동시 순유출",s:"24/7 Wall St.",d:"03.28",t:"BTC -$171M, ETH -$92.5M",lk:"https://247wallst.com/investing/2026/03/28/why-is-crypto-crashing-bitcoin-xrp-ethereum-and-solana-all-down-this-week/"},
-{h:"BTC YTD -20% — Clarity Act 리스크",s:"Motley Fool",d:"03.28",t:"규제+금리 하방 요인",lk:"https://www.fool.com/investing/2026/03/25/bitcoin-is-down-20-in-2026-heres-why-things-could/"},
-{h:"고래 61,568 BTC 순매수 (한 달)",s:"CryptoNews",d:"03.27",t:"장단기 '분기' 시 강세 전환",lk:"https://cryptonews.net/news/bitcoin/32612289/"},
-],
-ins:"$14B 옵션만기 + 이란 봉쇄로 $66K 급락. ETF 동시 순유출, F&G 12. 스테이블코인 $316B + 고래 축적 = 중기 저점 신호.",
-ind:[{n:"Fear & Greed",s:"🔴 12",r:"극단 공포 = 저점 형성"},{n:"ETF 순유출입",s:"📉 동시 유출",r:"기관 센티먼트"},{n:"이란/유가",s:"⚠️ $100+",r:"위험자산 핵심"}]},
-};
-
-// === API FETCH WITH MULTI-PROXY FALLBACK ===
-const PROXIES=["https://corsproxy.io/?url=","https://api.allorigins.win/raw?url="];
-let apiOk=false;
-
-async function yf(sym){
-const url="https://query1.finance.yahoo.com/v8/finance/chart/"+encodeURIComponent(sym)+"?range=5d&interval=1d";
-for(const px of PROXIES){
-try{
-const r=await fetch(px+encodeURIComponent(url),{signal:AbortSignal.timeout(5000)});
-if(!r.ok)continue;
-const d=await r.json(),q=d.chart.result[0],cl=q.indicators.quote[0].close.filter(c=>c!=null);
-if(cl.length<2)continue;
-apiOk=true;
-return{last:cl[cl.length-1],prev:cl[cl.length-2],ts:q.timestamp?q.timestamp[q.timestamp.length-1]:null,live:true};
-}catch(e){continue;}
+function tog(id){
+  const body=document.getElementById('sb-'+id);
+  const arr=document.getElementById('sarr-'+id);
+  const open=body.classList.toggle('open');
+  arr.textContent=open?'▾':'▸';
+  arr.style.color=open?'var(--coal)':'var(--faint)';
 }
-// Fallback to static
-const fb=FB[sym];
-if(fb)return{last:fb.v,prev:fb.p,ts:null,live:false,date:fb.d};
-return null;
-}
-
-async function cg(){
-try{
-const r=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true",{signal:AbortSignal.timeout(5000)});
-if(!r.ok)throw 0;
-apiOk=true;
-const d=await r.json();d._live=true;return d;
-}catch(e){const f=JSON.parse(JSON.stringify(FB_CRYPTO));f._live=false;return f;}
-}
-
-function fm(n,k){if(k)return"₩"+Math.round(n).toLocaleString();return n>=100?"$"+n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}):"$"+n.toFixed(2);}
-function fc(a,b){const p=(a-b)/b*100;return{t:(p>=0?"+":"")+p.toFixed(2)+"%",c:p>=0?"up":"dn"};}
-function td(d){if(!d)return"";const dt=new Date(d*1000);return(dt.getMonth()+1)+"/"+dt.getDate();}
-
-// === RENDER ===
-function spb(p){const c=p.c.startsWith("+")?'up':p.c.startsWith("-")?'dn':'fl';return`<div class="pb"><div class="pl">${p.lk?`<a href="${p.lk}" target="_blank">${p.l}</a>`:p.l}</div><div class="pv2">${p.v}<span class="un">${p.u||""}</span></div><div class="pr"><span class="${c}">${p.c}</span><span class="pp">전일 ${p.p}</span></div>${p.n?`<div class="pn">${p.n}</div>`:""}</div>`;}
-
-function render(){
-document.getElementById("mb").innerHTML=MS.map(m=>`<div class="mi" id="m-${m.id}"><div class="ml">${m.l}</div><div class="mv fl">...</div><div class="mc fl">-</div></div>`).join("");
-let h="";
-Object.entries(SC).forEach(([k,s],i)=>{
-const op=i===0;
-h+=`<div class="cd${op?" op":""}" id="c-${k}"><div class="ch" onclick="tg('${k}')" ${op?`style="background:linear-gradient(135deg,${s.co}15,transparent)"`:""}>
-<div class="cl"><span class="ci">${s.ic}</span><span class="cn">${s.nm}</span></div>
-<div class="cr"><div class="ps" id="h-${k}"><div class="pv fl">...</div></div><span class="aw">▼</span></div>
-</div><div class="cx"><div class="pg" id="pg-${k}">
-${s.lk.map(x=>{const c=LV[x];return`<div class="pb" id="lv-${x}"><div class="pl"><a href="${c.lk}" target="_blank">${c.l}</a></div><div class="pv2 fl">로딩 중...</div></div>`;}).join("")}
-${k==="crypto"?`<div class="pb" id="lv-btc"><div class="pl"><a href="https://www.coingecko.com/en/coins/bitcoin" target="_blank">Bitcoin (BTC)</a></div><div class="pv2 fl">로딩 중...</div></div><div class="pb" id="lv-eth"><div class="pl"><a href="https://www.coingecko.com/en/coins/ethereum" target="_blank">Ethereum (ETH)</a></div><div class="pv2 fl">로딩 중...</div></div>`:""}
-${(s.sp||[]).map(p=>spb(p)).join("")}
-</div>
-<div style="margin-bottom:14px"><div class="st" style="color:${s.co}">📰 주요 뉴스 & 이슈</div>
-${s.nw.map(n=>`<div class="ni" style="border-left-color:${s.co}55"><div class="nh">${n.h}</div><div class="nd">${n.t}</div><div class="ns">${n.lk?`<a href="${n.lk}" target="_blank">${n.s}</a>`:n.s} · ${n.d}</div></div>`).join("")}
-</div>
-<div class="ib" style="background:linear-gradient(135deg,${s.co}10,${s.co}05);border-color:${s.co}30"><div class="it" style="color:${s.co}">💡 투자 인사이트</div><div class="ix">${s.ins}</div></div>
-<div><div class="st" style="color:${s.co}">📊 선행 지표</div>
-${s.ind.map(x=>`<div class="ii"><div class="ir"><span class="in2">${x.n}</span><span class="is">${x.s}</span></div><div class="il">→ ${x.r}</div></div>`).join("")}
-</div></div></div>`;
-});
-document.getElementById("cards").innerHTML=h;
-}
-
-function ulb(id,d,k){
-const el=document.getElementById(id);if(!el||!d)return;
-const ch=fc(d.last,d.prev),dt=d.live?td(d.ts)+" 종가":(d.date||"")+" 종가";
-const badge=d.live?'<span class="badge live">LIVE</span>':'<span class="badge fb">FALLBACK</span>';
-const lnk=el.querySelector(".pl").innerHTML;
-el.innerHTML=`<div class="pl">${lnk} ${badge}</div><div class="pv2">${fm(d.last,k)}</div><div class="pr"><span class="${ch.c}">${ch.t}</span><span class="pp">전일 ${fm(d.prev,k)}</span></div><div class="pn">${d.live?'<span class="ld on"></span>':'<span class="ld off"></span>'}${dt}</div>`;
-}
-
-function tg(k){const c=document.getElementById("c-"+k);c.classList.toggle("op");const h=c.querySelector(".ch"),s=SC[k];h.style.background=c.classList.contains("op")?`linear-gradient(135deg,${s.co}15,transparent)`:"transparent";c.style.borderColor=c.classList.contains("op")?s.co+"55":"rgba(148,163,184,.12)";}
-function xa(){Object.keys(SC).forEach(k=>{const c=document.getElementById("c-"+k);if(!c.classList.contains("op"))tg(k);})}
-function ca(){Object.keys(SC).forEach(k=>{const c=document.getElementById("c-"+k);if(c.classList.contains("op"))tg(k);})}
-
-// === LOAD ALL ===
-async function load(){
-document.getElementById("ts").innerHTML=`로딩 중... ${new Date().toLocaleString("ko-KR")}`;
-// Macro
-const macroResults=await Promise.all(MS.map(m=>yf(m.s)));
-MS.forEach((m,i)=>{
-const el=document.getElementById("m-"+m.id),d=macroResults[i];if(!el)return;
-if(!d){el.querySelector(".mv").textContent="N/A";return;}
-const ch=fc(d.last,d.prev),isK=m.id==="kr";
-el.querySelector(".mv").textContent=isK?"₩"+Math.round(d.last).toLocaleString():d.last.toLocaleString(undefined,{maximumFractionDigits:2});
-el.querySelector(".mv").classList.remove("fl");
-el.querySelector(".mc").textContent=ch.t;el.querySelector(".mc").className="mc "+ch.c;
-});
-// Sector live prices
-const liveResults={};
-await Promise.all(Object.entries(LV).map(async([k,c])=>{
-const isK=c.s.endsWith(".KS"),d=await yf(c.s);
-liveResults[k]=d;
-ulb("lv-"+k,d,isK);
-Object.entries(SC).forEach(([sk,sv])=>{
-if(sv.lk[0]===k&&d){
-const ch=fc(d.last,d.prev),he=document.getElementById("h-"+sk);
-if(he)he.innerHTML=`<div class="pv">${fm(d.last,isK)}</div><div class="pc ${ch.c}">${ch.t}</div>`;
-}});
-}));
-// Crypto
-const cr=await cg();
-["bitcoin","ethereum"].forEach(id=>{
-const el=document.getElementById("lv-"+(id==="bitcoin"?"btc":"eth"));
-if(!el||!cr||!cr[id])return;
-const p=cr[id],ch=p.usd_24h_change,isLive=cr._live;
-const badge=isLive?'<span class="badge live">LIVE</span>':'<span class="badge fb">FALLBACK</span>';
-const lnk=el.querySelector(".pl").innerHTML;
-el.innerHTML=`<div class="pl">${lnk} ${badge}</div><div class="pv2">$${p.usd.toLocaleString(undefined,{maximumFractionDigits:2})}</div><div class="pr"><span class="${ch>=0?"up":"dn"}">${ch>=0?"+":""}${ch.toFixed(2)}%</span><span class="pp">24h 변동</span></div><div class="pn">${isLive?'<span class="ld on"></span>CoinGecko Live':'<span class="ld off"></span>Fallback 데이터'}</div>`;
-});
-const he=document.getElementById("h-crypto");
-if(he&&cr&&cr.bitcoin){const ch=cr.bitcoin.usd_24h_change;he.innerHTML=`<div class="pv">$${cr.bitcoin.usd.toLocaleString(undefined,{maximumFractionDigits:0})}</div><div class="pc ${ch>=0?"up":"dn"}">${ch>=0?"+":""}${ch.toFixed(2)}%</div>`;}
-// Status
-const now=new Date().toLocaleString("ko-KR");
-if(apiOk){
-document.getElementById("status").innerHTML=`<span class="ld on"></span>실시간 가격 자동 갱신 · Yahoo Finance / CoinGecko API`;
-document.getElementById("ts").innerHTML=`<span class="ld on"></span>마지막 갱신: ${now} · 새로고침 시 자동 업데이트`;
-}else{
-document.getElementById("status").innerHTML=`<span class="ld off"></span>Fallback 모드 · API 접근 불가 시 마지막 확인 종가 표시`;
-document.getElementById("ts").innerHTML=`<span class="ld off"></span>${now} · API 연결 실패 → Fallback 데이터 사용 중 · GitHub Pages에서 실시간 작동`;
-}
-}
-
-render();load();
 </script>
 </body>
 </html>
