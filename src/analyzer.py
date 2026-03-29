@@ -1,7 +1,4 @@
-import json, os, sys, urllib.request
-from datetime import datetime, timezone, timedelta
-
-KST = timezone(timedelta(hours=9))
+import json, os, sys, urllib.request, time
 
 def main():
     print("\n=== Claude API Newsletter Generation ===\n")
@@ -21,57 +18,53 @@ def main():
     prices_str = json.dumps(raw.get("prices", {}), ensure_ascii=False, indent=2)
     date_kr = raw.get("date_kr", "")
 
-    system = f"""You are a senior multi-market analyst. Today is {date_kr}.
-Scraped market data (some values may be null):
-
+    system = f"""You are a market analyst. Today: {date_kr}.
+Scraped data:
 {prices_str}
 
-Using this data AND your training knowledge, produce a Korean-language market newsletter.
-Return ONLY valid JSON. No markdown. No backticks. All text in Korean.
+Return ONLY a JSON object. No explanation before or after. No markdown.
+Keep each text field under 80 characters. All text in Korean.
 
-JSON structure:
+STRICT JSON FORMAT:
 {{
   "date": "{raw.get('date','')}",
   "date_kr": "{date_kr}",
   "ticker": [
-    {{"label":"뉴캐슬 6000","value":"$XXX/t","change":"±X.X%","trend":"UP|DOWN|STABLE","source":"출처","date":"MM/DD"}}
+    {{"label":"뉴캐슬 6000","value":"$XXX/t","change":"±X%","trend":"UP","source":"src","date":"MM/DD"}}
   ],
   "coal": {{
-    "briefHeadline": "한 문장",
-    "briefText": "2-3문장",
+    "briefHeadline": "short headline",
+    "briefText": "2 sentences max",
     "articles": [
-      {{"title":"제목","source":"출처","date":"MM/DD","summary":"1-2문장","relevance":"HIGH|MEDIUM|LOW","investmentImplication":"시사점"}}
+      {{"title":"title","source":"src","date":"MM/DD","summary":"1 sentence","relevance":"HIGH","investmentImplication":"1 sentence"}}
     ],
-    "countryIndonesia": "1-2문장",
-    "countryChina": "1-2문장",
-    "countryIndia": "1-2문장",
-    "outlook": ["전망1","전망2","전망3"],
-    "leadingIndicators": [{{"name":"지표","value":"값","source":"출처","date":"날짜","why":"관련성"}}]
+    "countryIndonesia": "1 sentence",
+    "countryChina": "1 sentence",
+    "countryIndia": "1 sentence",
+    "outlook": ["point1","point2","point3"]
   }},
-  "copper": {{"headline":"","summary":"","peers":"","leadingIndicators":[]}},
-  "uranium": {{"headline":"","summary":"","peers":"","leadingIndicators":[]}},
-  "samsung": {{"headline":"","summary":"","peers":"","leadingIndicators":[]}},
-  "lsElectric": {{"headline":"","summary":"","leadingIndicators":[]}},
-  "hyundai": {{"headline":"","summary":""}},
-  "kBeauty": {{"headline":"","summary":""}},
-  "teslaTech": {{"headline":"","summary":""}},
-  "macro": {{"headline":"","summary":"","indicators":[]}},
-  "miniReport": {{"title":"특징 이슈","content":"3-4문장"}}
+  "copper": {{"headline":"1 line","summary":"2 sentences","peers":"1 sentence"}},
+  "uranium": {{"headline":"1 line","summary":"2 sentences","peers":"1 sentence"}},
+  "samsung": {{"headline":"1 line","summary":"2 sentences","peers":"1 sentence"}},
+  "lsElectric": {{"headline":"1 line","summary":"1 sentence"}},
+  "hyundai": {{"headline":"1 line","summary":"1 sentence"}},
+  "kBeauty": {{"headline":"1 line","summary":"1 sentence"}},
+  "teslaTech": {{"headline":"1 line","summary":"1 sentence"}},
+  "macro": {{"headline":"1 line","summary":"2 sentences"}},
+  "miniReport": {{"title":"issue title","content":"2-3 sentences"}}
 }}
 
 RULES:
-- ticker: 8-10 items with scraped values
-- coal: 4-6 articles, detailed
-- Leading indicators: explain WHY each matters
-- Include source+date for every data point
-- miniReport: most impactful theme today"""
+- ticker: 8 items using scraped values
+- coal articles: exactly 4
+- Keep ALL text fields SHORT
+- Return raw JSON only, no text before or after"""
 
     body = json.dumps({
         "model": "claude-sonnet-4-20250514",
-        "max_tokens": 16000,
+        "max_tokens": 4096,
         "system": system,
-        "messages": [{"role": "user", "content": f"오늘({date_kr}) 멀티마켓 뉴스레터를 생성해주세요."}],
-        "tools": [{"type": "web_search_20250305", "name": "web_search"}],
+        "messages": [{"role": "user", "content": "Generate the newsletter JSON now."}],
     }).encode("utf-8")
 
     req = urllib.request.Request(
@@ -85,40 +78,62 @@ RULES:
         method="POST",
     )
 
-    print("Calling Claude API (30-90 seconds)...")
-    try:
-        with urllib.request.urlopen(req, timeout=120) as resp:
-            result = json.loads(resp.read().decode("utf-8"))
-    except Exception as e:
-        print(f"API error: {e}")
+    # Retry logic
+    for attempt in range(3):
+        print(f"Calling Claude API (attempt {attempt+1}/3)...")
+        try:
+            with urllib.request.urlopen(req, timeout=120) as resp:
+                result = json.loads(resp.read().decode("utf-8"))
+            break
+        except urllib.error.HTTPError as e:
+            if e.code == 429:
+                wait = 30 * (attempt + 1)
+                print(f"Rate limited. Waiting {wait}s...")
+                time.sleep(wait)
+                continue
+            print(f"HTTP error: {e.code}")
+            sys.exit(1)
+        except Exception as e:
+            print(f"Error: {e}")
+            sys.exit(1)
+    else:
+        print("Failed after 3 attempts")
         sys.exit(1)
 
+    # Extract text
     texts = [b["text"] for b in result.get("content", []) if b.get("type") == "text"]
     if not texts:
-        print("ERROR: no text in API response")
+        print("ERROR: no text in response")
+        print(json.dumps(result, indent=2, ensure_ascii=False)[:500])
         sys.exit(1)
 
-    cleaned = "\n".join(texts).replace("```json", "").replace("```", "").strip()
-    first_brace = cleaned.find("{")
-    if first_brace > 0:
-        cleaned = cleaned[first_brace:]
-    if not cleaned.endswith("}"):
-        last_brace = cleaned.rfind("}")
-        if last_brace > 0:
-            cleaned = cleaned[:last_brace + 1]
+    cleaned = "\n".join(texts).strip()
+
+    # Remove any text before first {
+    first = cleaned.find("{")
+    if first > 0:
+        cleaned = cleaned[first:]
+
+    # Remove any text after last }
+    last = cleaned.rfind("}")
+    if last > 0:
+        cleaned = cleaned[:last + 1]
+
+    # Remove markdown fences
+    cleaned = cleaned.replace("```json", "").replace("```", "").strip()
+
     try:
         newsletter = json.loads(cleaned)
     except json.JSONDecodeError as e:
-        print(f"JSON parse error: {e}")
-        print(f"Response preview: {cleaned[:500]}")
-        print(f"Response end: {cleaned[-200:]}")
+        print(f"JSON error: {e}")
+        print(f"First 300 chars: {cleaned[:300]}")
+        print(f"Last 300 chars: {cleaned[-300:]}")
         sys.exit(1)
 
     with open("data/newsletter.json", "w", encoding="utf-8") as f:
         json.dump(newsletter, f, ensure_ascii=False, indent=2)
 
-    print(f"Done: data/newsletter.json")
-    print(f"Sections: {list(newsletter.keys())}")
+    print(f"Success! Sections: {list(newsletter.keys())}")
 
 if __name__ == "__main__":
     main()
