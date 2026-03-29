@@ -1,0 +1,70 @@
+{
+  "date": "2026-03-29",
+  "date_kr": "2026년 03월 29일",
+  "ticker": [
+    {
+      "label": "Newcastle 6000",
+      "value": "$/t135.6",
+      "source": "www.oilpriceapi.com",
+      "date": "2026-03-29"
+    },
+    {
+      "label": "HBA Indonesia",
+      "value": "$/t103.01",
+      "source": "coaltradeindo.com",
+      "date": "2026-03-29"
+    },
+    {
+      "label": "Coking Coal",
+      "value": "$/t223.5",
+      "source": "tradingeconomics.com",
+      "date": "2026-03-29"
+    }
+  ],
+  "coal": {
+    "briefHeadline": "**석탄 가격 상승세 지속, 코킹콜 200달러 돌파**",
+    "briefText": "**석탄 가격 상승세 지속, 코킹콜 200달러 돌파**",
+    "countryIndonesia": "**인도네시아**",
+    "countryChina": "**중국**",
+    "countryIndia": "**인도**",
+    "outlook": [
+      "**전망**"
+    ]
+  },
+  "copper": {
+    "headline": "",
+    "summary": ""
+  },
+  "uranium": {
+    "headline": "",
+    "summary": ""
+  },
+  "samsung": {
+    "headline": "",
+    "summary": ""
+  },
+  "lsElectric": {
+    "headline": "",
+    "summary": ""
+  },
+  "hyundai": {
+    "headline": "",
+    "summary": ""
+  },
+  "kBeauty": {
+    "headline": "",
+    "summary": ""
+  },
+  "teslaTech": {
+    "headline": "",
+    "summary": ""
+  },
+  "macro": {
+    "headline": "",
+    "summary": ""
+  },
+  "miniReport": {
+    "title": "오늘의 시장",
+    "content": "**석탄 가격 상승세 지속, 코킹콜 200달러 돌파**"
+  }
+}
