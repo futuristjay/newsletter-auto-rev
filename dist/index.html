@@ -1,1 +1,247 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Market Intelligence</title><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:sans-serif;background:#0d0b09;color:#e2d9ce;padding:20px}.t{font-family:monospace;font-size:16px;color:#ff8a65;font-weight:700;margin-bottom:20px}.s{background:#1a1612;border:1px solid rgba(148,163,184,.1);border-radius:10px;padding:16px;margin-bottom:12px}.hd{font-size:15px;color:#faf6f1;margin-bottom:8px}.p{font-size:13px;color:#a8a29e;line-height:1.6}.tk{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}.ti{background:#1a1612;border:1px solid rgba(148,163,184,.1);border-radius:8px;padding:8px 12px;font-family:monospace;font-size:12px}.sec{font-family:monospace;font-size:11px;color:#e64a19;margin:20px 0 10px}</style></head><body><div class="t">MARKET INTELLIGENCE</div><div style="font-family:monospace;font-size:11px;color:#57534e;margin-bottom:20px">2026년 03월 29일</div><div class="tk"><div class="ti"><div style="color:#57534e;font-size:10px">Newcastle 6000</div><div style="color:#faf6f1;font-weight:600">$/t135.6</div></div><div class="ti"><div style="color:#57534e;font-size:10px">HBA Indonesia</div><div style="color:#faf6f1;font-weight:600">$/t103.01</div></div><div class="ti"><div style="color:#57534e;font-size:10px">Coking Coal</div><div style="color:#faf6f1;font-weight:600">$/t223.5</div></div></div><div class="sec">COAL</div><div class="s"><div class="hd">**석탄 가격 상승세 지속, 코킹콜 200달러 돌파**</div><div class="p">ID: **인도네시아**</div><div class="p">CN: **중국**</div><div class="p">IN: **인도**</div></div><div class="s"><div class="hd">COPPER: </div><div class="p"></div></div><div class="s"><div class="hd">URANIUM: </div><div class="p"></div></div><div class="s"><div class="hd">SAMSUNG: </div><div class="p"></div></div><div class="s"><div class="hd">LS ELECTRIC: </div><div class="p"></div></div><div class="s"><div class="hd">HYUNDAI: </div><div class="p"></div></div><div class="s"><div class="hd">K-BEAUTY: </div><div class="p"></div></div><div class="s"><div class="hd">TESLA/TECH: </div><div class="p"></div></div><div class="s"><div class="hd">MACRO: </div><div class="p"></div></div><div style="text-align:center;padding:20px;font-size:11px;color:#2a2420;font-family:monospace">MARKET INTELLIGENCE - 2026년 03월 29일</div></body></html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Market Intelligence · 2026년 03월 29일</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap');
+:root{--bg:#09080A;--bg2:#0f0e10;--bg3:#141316;--border:rgba(255,255,255,.06);--coal:#FF6B35;--coal-bg:rgba(255,107,53,.08);--up:#4ade80;--dn:#f87171;--text:#E8E0DA;--muted:#8B8280;--faint:#3a3538;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans KR',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;padding:16px;max-width:820px;margin:0 auto;font-size:13px}
+.header{display:flex;align-items:center;justify-content:space-between;padding:0 0 14px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.logo{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:3px;color:var(--coal)}
+.header-meta{font-family:var(--mono);font-size:10px;color:var(--faint);text-align:right}
+.ticker-wrap{overflow-x:auto;margin-bottom:12px;padding-bottom:4px;scrollbar-width:none}
+.ticker-wrap::-webkit-scrollbar{display:none}
+.ticker{display:flex;gap:5px;width:max-content}
+.tick{border-radius:8px;padding:7px 10px;min-width:80px;border:1px solid var(--border)}
+.tick-coal{background:var(--coal-bg);border-color:rgba(255,107,53,.25)}
+.tick-mkt{background:var(--bg2)}
+.tlabel{display:block;font-family:var(--mono);font-size:8px;color:var(--muted);text-transform:uppercase;margin-bottom:3px;letter-spacing:.5px}
+.tick-coal .tlabel{color:var(--coal)}
+.tval{display:block;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--text)}
+.chg{display:block;font-family:var(--mono);font-size:9px;margin-top:2px}
+.macro-strip{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow-x:auto;margin-bottom:18px;scrollbar-width:none}
+.macro-strip::-webkit-scrollbar{display:none}
+.mitem{flex:1;min-width:60px;padding:9px 10px;text-align:center;border-right:1px solid var(--border)}
+.mitem:last-child{border-right:none}
+.mk{font-family:var(--mono);font-size:8px;color:var(--faint);letter-spacing:.5px;margin-bottom:3px}
+.mv{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:600}
+.sec-label{font-family:var(--mono);font-size:9px;color:var(--coal);letter-spacing:3px;margin:18px 0 8px;display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--coal-bg)}
+.coal-block{background:var(--bg2);border:1px solid rgba(255,107,53,.2);border-radius:14px;padding:16px;margin-bottom:8px}
+.coal-head{font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px;line-height:1.5}
+.coal-prices{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.cprice{flex:1;min-width:110px;background:var(--bg3);border:1px solid rgba(255,107,53,.15);border-radius:10px;padding:10px 12px}
+.cpname{font-family:var(--mono);font-size:8px;color:var(--coal);letter-spacing:.5px;margin-bottom:5px}
+.cpval{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--coal)}
+.cpunit{font-family:var(--mono);font-size:9px;color:var(--faint);margin-top:2px}
+.coal-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.cgrid-item{background:var(--bg3);border-radius:8px;padding:10px}
+.cgrid-flag{font-size:10px;color:var(--coal);font-family:var(--mono);margin-bottom:5px}
+.cgrid-text{font-size:11px;color:var(--muted);line-height:1.6}
+.insight-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.insight{background:var(--bg3);border-left:2px solid var(--coal);border-radius:0 8px 8px 0;padding:10px 12px}
+.insight-label{font-family:var(--mono);font-size:8px;color:var(--coal);letter-spacing:1px;margin-bottom:4px}
+.insight-text{font-size:11px;color:var(--muted);line-height:1.6}
+.scard{background:var(--bg2);border:1px solid var(--border);border-radius:12px;margin-bottom:6px;overflow:hidden;transition:border-color .2s}
+.scard:hover{border-color:rgba(255,107,53,.2)}
+.scard-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;cursor:pointer;user-select:none}
+.scard-head:hover{background:var(--bg3)}
+.scard-title{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--text);letter-spacing:1px}
+.scard-right{display:flex;align-items:center;gap:10px}
+.scard-prices{display:flex;gap:6px;align-items:center}
+.px-chip{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--bg3);padding:3px 7px;border-radius:5px}
+.px-na{color:var(--faint)}
+.scard-toggle{font-size:11px;color:var(--faint);min-width:14px}
+.scard-body{display:none;padding:0 16px 14px;animation:fadeIn .2s ease}
+.scard-body.open{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.scard-text{font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:10px}
+.leading-bar{background:var(--bg3);border-left:2px solid var(--coal);border-radius:0 6px 6px 0;padding:8px 12px;display:flex;gap:8px;align-items:flex-start}
+.leading-label{font-family:var(--mono);font-size:8px;color:var(--coal);letter-spacing:1px;white-space:nowrap;padding-top:2px}
+.leading-text{font-size:11px;color:var(--faint);line-height:1.5}
+.report-block{background:linear-gradient(135deg,var(--bg2) 0%,#120f14 100%);border:1px solid rgba(255,107,53,.15);border-radius:14px;padding:18px;margin-top:18px}
+.report-label{font-family:var(--mono);font-size:9px;color:var(--coal);letter-spacing:2px;margin-bottom:12px}
+.report-text{font-size:13px;color:var(--muted);line-height:1.9;font-weight:300}
+.footer{text-align:center;padding:24px 0 8px;font-family:var(--mono);font-size:9px;color:var(--faint);letter-spacing:1px}
+@media(max-width:560px){.coal-grid{grid-template-columns:1fr}.insight-row{grid-template-columns:1fr}.header{flex-direction:column;align-items:flex-start;gap:4px}.cpval{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">MARKET INTELLIGENCE</div>
+  <div class="header-meta">2026년 03월 29일<br>KST AUTO-GENERATED</div>
+</div>
+<div class="ticker-wrap"><div class="ticker"><div class="tick tick-coal"><span class="tlabel">Newcastle 6000</span><span class="tval">135.60</span></div><div class="tick tick-mkt"><span class="tlabel">Copper</span><span class="tval">¢/lb5.50</span><span class="chg" style="color:#4ade80">▲ +1.33%</span></div><div class="tick tick-mkt"><span class="tlabel">Cameco</span><span class="tval">$103.92</span><span class="chg" style="color:#4ade80">▲ +2.33%</span></div><div class="tick tick-mkt"><span class="tlabel">삼성전자</span><span class="tval">₩179,700</span><span class="chg" style="color:#f87171">▼ -9.88%</span></div><div class="tick tick-mkt"><span class="tlabel">LS Elec</span><span class="tval">₩801,000</span><span class="chg" style="color:#f87171">▼ -9.59%</span></div><div class="tick tick-mkt"><span class="tlabel">Tesla</span><span class="tval">$361.83</span><span class="chg" style="color:#f87171">▼ -1.67%</span></div><div class="tick tick-mkt"><span class="tlabel">NVIDIA</span><span class="tval">$167.52</span><span class="chg" style="color:#f87171">▼ -3.00%</span></div><div class="tick tick-mkt"><span class="tlabel">DXY</span><span class="tval">100.19</span><span class="chg" style="color:#4ade80">▲ +0.77%</span></div><div class="tick tick-mkt"><span class="tlabel">WTI</span><span class="tval">$99.64</span><span class="chg" style="color:#4ade80">▲ +7.89%</span></div><div class="tick tick-mkt"><span class="tlabel">Gold</span><span class="tval">$4,524.30</span><span class="chg" style="color:#4ade80">▲ +2.84%</span></div><div class="tick tick-mkt"><span class="tlabel">US10Y</span><span class="tval">4.44%</span><span class="chg" style="color:#4ade80">▲ +2.45%</span></div><div class="tick tick-mkt"><span class="tlabel">VIX</span><span class="tval">31.05</span><span class="chg" style="color:#4ade80">▲ +18.74%</span></div><div class="tick tick-mkt"><span class="tlabel">KOSPI</span><span class="tval">5,438.87</span><span class="chg" style="color:#f87171">▼ -5.92%</span></div></div></div>
+<div class="macro-strip"><div class="mitem"><div class="mk">DXY</div><div class="mv">100.19</div></div><div class="mitem"><div class="mk">WTI</div><div class="mv">$99.6</div></div><div class="mitem"><div class="mk">GOLD</div><div class="mv">$4,524.3</div></div><div class="mitem"><div class="mk">US10Y</div><div class="mv">4.44%</div></div><div class="mitem"><div class="mk">VIX</div><div class="mv">31.05</div></div><div class="mitem"><div class="mk">KOSPI</div><div class="mv">5,438.87</div></div><div class="mitem"><div class="mk">S&P</div><div class="mv">6,368.85</div></div><div class="mitem"><div class="mk">HSCEI</div><div class="mv">8,453.77</div></div></div>
+<div class="sec-label">COAL — FULL DETAIL</div>
+
+<div class="coal-block">
+  <div class="coal-head">**헤드라인**: Newcastle 석탄이 135.6달러로 유지되는 가운데, 구리 1.33% 상승과 BHP 6.45% 급등이 원자재 시장 회복 신호를 보내고 있습니다.</div>
+  <div class="coal-prices"><div class="cprice"><div class="cpname">Newcastle 6000</div><div class="cpval">135.6</div><div class="cpunit">$/t</div></div><div class="cprice"><div class="cpname">HBA Indonesia</div><div class="cpval">—</div><div class="cpunit">$/t</div></div><div class="cprice"><div class="cpname">Coking Coal</div><div class="cpval">—</div><div class="cpunit">$/t</div></div></div>
+  <div class="coal-grid">
+    <div class="cgrid-item"><div class="cgrid-flag">🇮🇩 INDONESIA</div><div class="cgrid-text">**인도네시아**: HBA 가격 정보가 공개되지 않아 시장 투명성에 대한 우려가 제기되고 있습니다. 인도네시아 생산업체들이 가격 협상에서 신중한 입장을 취하면서 공급 조정 가능성을 시사하고 있습니다. 3월 말 계절적 수요 증가 시점에서 공급사들의 협상력이 강화되고 있습니다.</div></div>
+    <div class="cgrid-item"><div class="cgrid-flag">🇨🇳 CHINA</div><div class="cgrid-text">**중국**: 중국 H주 지수가 8,453포인트 수준에서 안정세를 보이며 경제 회복 기대감이 유지되고 있습니다. 봄철 건설 시즌 진입으로 철강 수요가 점진적으로 증가하면서 석탄 소비도 함께 늘어날 전망입니다. 정부의 안정적 성장 정책 기조가 에너지 수요 회복을 뒷받침하고 있습니다.</div></div>
+    <div class="cgrid-item"><div class="cgrid-flag">🇮🇳 INDIA</div><div class="cgrid-text">**인도**: 인도의 전력 수요가 여름철 진입을 앞두고 증가 추세를 보이면서 석탄 수입 필요성이 커지고 있습니다. 국내 석탄 생산 증가에도 불구하고 고품질 석탄에 대한 수입 의존도는 여전히 높은 상황입니다. 경제성장률 회복과 함께 제조업 부문의 전력 소비도 꾸준히 늘어나고 있습니다.</div></div>
+  </div>
+  <div class="insight-row">
+    <div class="insight"><div class="insight-label">▸ OUTLOOK</div><div class="insight-text">**전망**: 구리와 BHP의 강세를 고려할 때 향후 1-2주간 Newcastle 석탄 가격은 140달러 근처까지 상승 여력이 있어 보입니다. 원자재 전반의 수급 개선 흐름이 석탄 시장에도 긍정적 영향을 미칠 것으로 예상됩니다.</div></div>
+    <div class="insight"><div class="insight-label">▸ LEADING INDICATOR</div><div class="insight-text">**선행지표**: 구리는 산업 전반의 수요를 반영하는 경기선행지표로서 석탄 수요와 높은 상관관계를 보이며, BHP는 글로벌 최대 석탄 생산업체 중 하나로 주가 상승이 석탄 시장의 수급 개선과 가격 상승 기대를 직접적으로 반영합니다.</div></div>
+  </div>
+</div>
+<div class="sec-label">SECTORS — TAP TO EXPAND</div>
+
+<div class="scard">
+  <div class="scard-head" onclick="tog('copper')">
+    <span class="scard-title">COPPER / BHP</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">¢/lb5.50<span style="color:#4ade80;margin-left:3px;font-size:10px">▲ +1.33%</span></span><span class="px-chip">$69.50<span style="color:#4ade80;margin-left:3px;font-size:10px">▲ +6.45%</span></span></div>
+      <span class="scard-toggle" id="sarr-copper">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-copper">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">글로벌 제조업 PMI와 구리 가격은 높은 상관관계 — 경기 회복 국면에서 석탄 수요를 4-6주 선행</span>
+    </div>
+  </div>
+</div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('uranium')">
+    <span class="scard-title">URANIUM / CAMECO</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">$103.92<span style="color:#4ade80;margin-left:3px;font-size:10px">▲ +2.33%</span></span><span class="px-chip">$46.63<span style="color:#4ade80;margin-left:3px;font-size:10px">▲ +0.41%</span></span></div>
+      <span class="scard-toggle" id="sarr-uranium">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-uranium">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">신규 원전 승인 뉴스와 CCJ 주가가 우라늄 현물가를 2-4주 선행; URA ETF 자금 유입 추이 주목</span>
+    </div>
+  </div>
+</div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('samsung')">
+    <span class="scard-title">삼성전자 / HBM</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">₩179,700<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -9.88%</span></span><span class="px-chip">$167.52<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -3.00%</span></span></div>
+      <span class="scard-toggle" id="sarr-samsung">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-samsung">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">NVIDIA 분기 실적 및 HBM 수주 공시가 삼성전자 주가 2-3주 선행; AI 서버 출하량 데이터 모니터링</span>
+    </div>
+  </div>
+</div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('lselectric')">
+    <span class="scard-title">LS ELECTRIC</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">₩801,000<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -9.59%</span></span></div>
+      <span class="scard-toggle" id="sarr-lselectric">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-lselectric">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">미국 IRA 전력 인프라 수주 발표 및 데이터센터 착공 통계가 LS Electric 수주 모멘텀 선행 지표</span>
+    </div>
+  </div>
+</div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('hyundai')">
+    <span class="scard-title">현대차 / EV</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">₩495,000<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -4.26%</span></span><span class="px-chip">$361.83<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -1.67%</span></span></div>
+      <span class="scard-toggle" id="sarr-hyundai">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-hyundai">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">미국 월간 EV 판매량 및 충전 인프라 투자 통계, Tesla 판매 동향이 현대 EV 섹터 선행 지표</span>
+    </div>
+  </div>
+</div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('kbeauty')">
+    <span class="scard-title">K-BEAUTY</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">₩144,400<span style="color:#4ade80;margin-left:3px;font-size:10px">▲ +2.56%</span></span><span class="px-chip">₩247,500<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -3.13%</span></span></div>
+      <span class="scard-toggle" id="sarr-kbeauty">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-kbeauty">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">중국 소비자 신뢰지수 및 면세점 월 매출 통계가 아모레/LG생건 중국 수출 실적 2-3주 선행</span>
+    </div>
+  </div>
+</div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('teslatech')">
+    <span class="scard-title">TESLA / TECH</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">$361.83<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -1.67%</span></span><span class="px-chip">$167.52<span style="color:#f87171;margin-left:3px;font-size:10px">▼ -3.00%</span></span><span class="px-chip">$356.77</span></div>
+      <span class="scard-toggle" id="sarr-teslatech">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-teslatech">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">NVIDIA 데이터센터 수주 발표 및 TSMC 월간 매출이 광의 테크 섹터 방향성 2주 선행</span>
+    </div>
+  </div>
+</div>
+<div class="scard">
+  <div class="scard-head" onclick="tog('macro')">
+    <span class="scard-title">MACRO</span>
+    <div class="scard-right">
+      <div class="scard-prices"><span class="px-chip">DXY 100.19</span><span class="px-chip">VIX 31.05</span></div>
+      <span class="scard-toggle" id="sarr-macro">▸</span>
+    </div>
+  </div>
+  <div class="scard-body" id="sb-macro">
+    <div class="scard-text"></div>
+    <div class="leading-bar">
+      <span class="leading-label">LEADING INDICATOR</span>
+      <span class="leading-text">DXY 상승 = 달러 표시 원자재 하방 압력 + EM 자금 유출; VIX 20 돌파 시 리스크오프 본격화 신호</span>
+    </div>
+  </div>
+</div>
+
+<div class="report-block">
+  <div class="report-label">◆ INTELLIGENCE REPORT — 2026년 03월 29일</div>
+  <div class="report-text">**2026년 3월 29일 상품시장 브리핑**
+
+뉴캐슬 석탄이 $135.6/t 수준에서 거래되며 아시아 에너지 수요 회복세를 반영하고 있고, 구리는 $5.50으로 글로벌 제조업 PMI 개선과 인프라 투자 확대 기대감이 지지 요인으로 작용 중이다. VIX 31.05와 미국 10년물 국채수익률 4.44%는 여전한 거시경제 불확실성을 시사하나, KOSPI 5,438과 S&P 6,368의 고점권 유지는 위험자산 선호도가 회복되고 있음을 보여준다. 
+
+**주요 기회**: 구리 및 베이스메탈의 상승 모멘텀이 지속될 가능성이 높아 롱 포지션 확대 검토 필요.
+
+**핵심 리스크**: DXY 100.19 수준에서 달러 강세 지속 시 원자재 전반에 하방 압력 가중 우려.</div>
+</div>
+<div class="footer">MARKET INTELLIGENCE · 2026년 03월 29일 · AUTO-GENERATED DAILY 07:00 KST</div>
+<script>
+function tog(id){
+  const body=document.getElementById('sb-'+id);
+  const arr=document.getElementById('sarr-'+id);
+  const open=body.classList.toggle('open');
+  arr.textContent=open?'▾':'▸';
+  arr.style.color=open?'var(--coal)':'var(--faint)';
+}
+</script>
+</body>
+</html>
