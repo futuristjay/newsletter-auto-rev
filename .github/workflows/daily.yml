@@ -21,7 +21,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          python3 << 'SCRIPT'
+          python3 << 'SCRIPT' || true
           import json, os, sys, re, time
           from datetime import datetime, timezone, timedelta
           from urllib.request import urlopen, Request
