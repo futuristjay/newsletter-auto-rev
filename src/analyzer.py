@@ -1,72 +1,13 @@
 import json, os, sys, urllib.request, time
 
-def main():
-    print("\n=== Claude API Newsletter Generation ===\n")
-
-    if not os.path.exists("data/raw_data.json"):
-        print("ERROR: run scraper.py first")
-        sys.exit(1)
-
-    with open("data/raw_data.json", "r", encoding="utf-8") as f:
-        raw = json.load(f)
-
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        print("ERROR: ANTHROPIC_API_KEY not set")
-        sys.exit(1)
-
-    prices_str = json.dumps(raw.get("prices", {}), ensure_ascii=False, indent=2)
-    date_kr = raw.get("date_kr", "")
-
-    system = f"""You are a market analyst. Today: {date_kr}.
-Scraped data:
-{prices_str}
-
-Return ONLY a JSON object. No explanation before or after. No markdown.
-Keep each text field under 80 characters. All text in Korean.
-
-STRICT JSON FORMAT:
-{{
-  "date": "{raw.get('date','')}",
-  "date_kr": "{date_kr}",
-  "ticker": [
-    {{"label":"뉴캐슬 6000","value":"$XXX/t","change":"±X%","trend":"UP","source":"src","date":"MM/DD"}}
-  ],
-  "coal": {{
-    "briefHeadline": "short headline",
-    "briefText": "2 sentences max",
-    "articles": [
-      {{"title":"title","source":"src","date":"MM/DD","summary":"1 sentence","relevance":"HIGH","investmentImplication":"1 sentence"}}
-    ],
-    "countryIndonesia": "1 sentence",
-    "countryChina": "1 sentence",
-    "countryIndia": "1 sentence",
-    "outlook": ["point1","point2","point3"]
-  }},
-  "copper": {{"headline":"1 line","summary":"2 sentences","peers":"1 sentence"}},
-  "uranium": {{"headline":"1 line","summary":"2 sentences","peers":"1 sentence"}},
-  "samsung": {{"headline":"1 line","summary":"2 sentences","peers":"1 sentence"}},
-  "lsElectric": {{"headline":"1 line","summary":"1 sentence"}},
-  "hyundai": {{"headline":"1 line","summary":"1 sentence"}},
-  "kBeauty": {{"headline":"1 line","summary":"1 sentence"}},
-  "teslaTech": {{"headline":"1 line","summary":"1 sentence"}},
-  "macro": {{"headline":"1 line","summary":"2 sentences"}},
-  "miniReport": {{"title":"issue title","content":"2-3 sentences"}}
-}}
-
-RULES:
-- ticker: 8 items using scraped values
-- coal articles: exactly 4
-- Keep ALL text fields SHORT
-- Return raw JSON only, no text before or after"""
-
+def call_api(api_key, system, user_msg, max_retries=3):
     body = json.dumps({
         "model": "claude-sonnet-4-20250514",
         "max_tokens": 4096,
-        "system": system,
-        "messages": [{"role": "user", "content": "Generate the newsletter JSON now."}],
+        "messages": [
+            {"role": "user", "content": system + "\n\n" + user_msg}
+        ],
     }).encode("utf-8")
-
     req = urllib.request.Request(
         "https://api.anthropic.com/v1/messages",
         data=body,
@@ -77,63 +18,120 @@ RULES:
         },
         method="POST",
     )
-
-    # Retry logic
-    for attempt in range(3):
-        print(f"Calling Claude API (attempt {attempt+1}/3)...")
+    for attempt in range(max_retries):
         try:
             with urllib.request.urlopen(req, timeout=120) as resp:
                 result = json.loads(resp.read().decode("utf-8"))
-            break
+            texts = [b["text"] for b in result.get("content", []) if b.get("type") == "text"]
+            raw = "\n".join(texts).strip()
+            first = raw.find("{")
+            last = raw.rfind("}")
+            if first >= 0 and last > first:
+                raw = raw[first:last+1]
+            return json.loads(raw)
         except urllib.error.HTTPError as e:
             if e.code == 429:
-                wait = 30 * (attempt + 1)
-                print(f"Rate limited. Waiting {wait}s...")
+                wait = 60 * (attempt + 1)
+                print(f"  Rate limited. Waiting {wait}s...")
                 time.sleep(wait)
                 continue
-            print(f"HTTP error: {e.code}")
+            print(f"  HTTP {e.code}")
+            sys.exit(1)
+        except json.JSONDecodeError as e:
+            print(f"  JSON error: {e}")
+            print(f"  Preview: {raw[:400]}")
             sys.exit(1)
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"  Error: {e}")
             sys.exit(1)
-    else:
-        print("Failed after 3 attempts")
-        sys.exit(1)
+    print("Failed after retries")
+    sys.exit(1)
 
-    # Extract text
-    texts = [b["text"] for b in result.get("content", []) if b.get("type") == "text"]
-    if not texts:
-        print("ERROR: no text in response")
-        print(json.dumps(result, indent=2, ensure_ascii=False)[:500])
-        sys.exit(1)
+def main():
+    print("\n=== Newsletter Generation ===\n")
+    if not os.path.exists("data/raw_data.json"):
+        print("ERROR: run scraper.py first"); sys.exit(1)
+    with open("data/raw_data.json", "r", encoding="utf-8") as f:
+        raw = json.load(f)
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        print("ERROR: ANTHROPIC_API_KEY not set"); sys.exit(1)
 
-    cleaned = "\n".join(texts).strip()
+    prices = json.dumps(raw.get("prices", {}), ensure_ascii=False)
+    dt = raw.get("date", "")
+    dk = raw.get("date_kr", "")
 
-    # Remove any text before first {
-    first = cleaned.find("{")
-    if first > 0:
-        cleaned = cleaned[first:]
+    # CALL 1: Coal detail
+    print("Step 1: Coal section...")
+    coal = call_api(api_key,
+        f"Today: {dk}. Data: {prices}",
+        """Return ONLY JSON. No other text. Korean only.
+{
+  "briefHeadline": "석탄 헤드라인 1문장",
+  "briefText": "브리프 2문장",
+  "articles": [
+    {"title":"제목","source":"출처","date":"MM/DD","summary":"요약1문장","relevance":"HIGH","investmentImplication":"시사점1문장"},
+    {"title":"제목2","source":"출처","date":"MM/DD","summary":"요약","relevance":"MEDIUM","investmentImplication":"시사점"},
+    {"title":"제목3","source":"출처","date":"MM/DD","summary":"요약","relevance":"MEDIUM","investmentImplication":"시사점"}
+  ],
+  "countryIndonesia": "1문장",
+  "countryChina": "1문장",
+  "countryIndia": "1문장",
+  "outlook": ["전망1","전망2","전망3"]
+}""")
+    print(f"  Coal OK: {list(coal.keys())}")
 
-    # Remove any text after last }
-    last = cleaned.rfind("}")
-    if last > 0:
-        cleaned = cleaned[:last + 1]
+    time.sleep(5)
 
-    # Remove markdown fences
-    cleaned = cleaned.replace("```json", "").replace("```", "").strip()
+    # CALL 2: Everything else
+    print("Step 2: Other sections...")
+    others = call_api(api_key,
+        f"Today: {dk}. Data: {prices}",
+        """Return ONLY JSON. No other text. Korean only.
+{
+  "ticker": [
+    {"label":"뉴캐슬 6000","value":"$XXX/t","change":"±X%","trend":"UP","source":"src","date":"MM/DD"},
+    {"label":"HBA 인니","value":"$XX/t","change":"±X%","trend":"UP","source":"src","date":"MM/DD"},
+    {"label":"LME 구리","value":"$XX,XXX/t","change":"±X%","trend":"DOWN","source":"src","date":"MM/DD"},
+    {"label":"우라늄","value":"$XX/lb","change":"±X%","trend":"UP","source":"src","date":"MM/DD"},
+    {"label":"WTI","value":"$XX/bbl","change":"±X%","trend":"UP","source":"src","date":"MM/DD"},
+    {"label":"원/달러","value":"₩X,XXX","change":"±X%","trend":"UP","source":"src","date":"MM/DD"},
+    {"label":"DXY","value":"XXX","change":"±X%","trend":"UP","source":"src","date":"MM/DD"},
+    {"label":"VIX","value":"XX","change":"±X%","trend":"UP","source":"src","date":"MM/DD"}
+  ],
+  "copper": {"headline":"1줄","summary":"2문장"},
+  "uranium": {"headline":"1줄","summary":"2문장"},
+  "samsung": {"headline":"1줄","summary":"2문장"},
+  "lsElectric": {"headline":"1줄","summary":"1문장"},
+  "hyundai": {"headline":"1줄","summary":"1문장"},
+  "kBeauty": {"headline":"1줄","summary":"1문장"},
+  "teslaTech": {"headline":"1줄","summary":"1문장"},
+  "macro": {"headline":"1줄","summary":"2문장"},
+  "miniReport": {"title":"이슈제목","content":"2문장"}
+}""")
+    print(f"  Others OK: {list(others.keys())}")
 
-    try:
-        newsletter = json.loads(cleaned)
-    except json.JSONDecodeError as e:
-        print(f"JSON error: {e}")
-        print(f"First 300 chars: {cleaned[:300]}")
-        print(f"Last 300 chars: {cleaned[-300:]}")
-        sys.exit(1)
+    # Merge
+    newsletter = {
+        "date": dt,
+        "date_kr": dk,
+        "ticker": others.get("ticker", []),
+        "coal": coal,
+        "copper": others.get("copper", {}),
+        "uranium": others.get("uranium", {}),
+        "samsung": others.get("samsung", {}),
+        "lsElectric": others.get("lsElectric", {}),
+        "hyundai": others.get("hyundai", {}),
+        "kBeauty": others.get("kBeauty", {}),
+        "teslaTech": others.get("teslaTech", {}),
+        "macro": others.get("macro", {}),
+        "miniReport": others.get("miniReport", {}),
+    }
 
+    os.makedirs("data", exist_ok=True)
     with open("data/newsletter.json", "w", encoding="utf-8") as f:
         json.dump(newsletter, f, ensure_ascii=False, indent=2)
-
-    print(f"Success! Sections: {list(newsletter.keys())}")
+    print(f"\nDone! data/newsletter.json saved.")
 
 if __name__ == "__main__":
     main()
