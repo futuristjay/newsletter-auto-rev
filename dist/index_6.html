@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DISPATCH — Multi-Market Intelligence</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(180deg,#0B1120,#0F172A);color:#F1F5F9;min-height:100vh}
+.w{max-width:720px;margin:0 auto;padding:20px 16px}
+.hd{text-align:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(148,163,184,.12)}
+.hd .tg{font-size:11px;letter-spacing:3px;color:#F97316;font-weight:700;margin-bottom:6px}
+.hd h1{font-size:22px;font-weight:800;line-height:1.3;margin-bottom:4px}
+.hd .sb{font-size:11px;color:#64748B}
+.ld{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px;animation:pu 2s infinite}
+.ld.on{background:#4ADE80}.ld.off{background:#F59E0B;animation:none}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.3}}
+.mb{display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px;background:linear-gradient(135deg,rgba(15,23,42,.95),rgba(30,41,59,.95));border-radius:12px;margin-bottom:16px;border:1px solid rgba(148,163,184,.15)}
+.mi{flex:1 1 calc(25% - 6px);min-width:130px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.04);text-align:center}
+.mi .ml{font-size:10px;color:#94A3B8;letter-spacing:.5px;margin-bottom:2px}
+.mi .mv{font-size:14px;font-weight:700}.mi .mc{font-size:11px;font-weight:600}
+.up{color:#4ADE80}.dn{color:#F87171}.fl{color:#94A3B8}
+.ct{display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px}
+.ct button{padding:5px 12px;border-radius:6px;border:1px solid rgba(148,163,184,.2);background:rgba(255,255,255,.05);color:#94A3B8;font-size:11px;cursor:pointer;font-weight:600}
+.ct button:hover{background:rgba(255,255,255,.1)}
+.cd{margin-bottom:10px;border-radius:12px;overflow:hidden;border:1px solid rgba(148,163,184,.12);background:rgba(15,23,42,.85);transition:all .3s}
+.cd.op{background:rgba(15,23,42,.97)}
+.ch{padding:14px 16px;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
+.ch .cl{display:flex;align-items:center;gap:10px}.ch .ci{font-size:20px}.ch .cn{font-size:15px;font-weight:700}
+.ch .cr{display:flex;align-items:center;gap:12px}
+.ps{text-align:right}.ps .pv{font-size:13px;font-weight:700}.ps .pc{font-size:11px;font-weight:600}
+.aw{font-size:14px;color:#64748B;transition:transform .3s;display:inline-block}
+.cd.op .aw{transform:rotate(180deg)}
+.cx{padding:0 16px 16px;display:none}.cd.op .cx{display:block}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:8px;margin-bottom:14px}
+.pb{padding:10px 12px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(148,163,184,.08)}
+.pb .pl{font-size:10px;color:#94A3B8;margin-bottom:3px}.pb .pl a{color:#94A3B8;text-decoration:underline}
+.pb .pv2{font-size:16px;font-weight:700}.pb .un{font-size:11px;color:#64748B}
+.pb .pr{display:flex;justify-content:space-between;margin-top:2px}
+.pb .pp{font-size:10px;color:#64748B}.pb .pn{font-size:9px;color:#64748B;margin-top:2px}
+.st{font-size:12px;font-weight:700;margin-bottom:8px;letter-spacing:.5px;display:flex;align-items:center;gap:6px}
+.ni{padding:10px 12px;margin-bottom:6px;border-radius:8px;background:rgba(255,255,255,.03);border-left:3px solid}
+.ni .nh{font-size:12px;font-weight:600;color:#E2E8F0;line-height:1.4;margin-bottom:4px}
+.ni .nd{font-size:11px;color:#94A3B8;line-height:1.4;margin-bottom:4px}
+.ni .ns{font-size:10px;color:#64748B}.ni .ns a{color:#94A3B8;text-decoration:underline}
+.ib{padding:12px 14px;border-radius:10px;margin-bottom:14px;border:1px solid rgba(255,255,255,.1)}
+.ib .it{font-size:11px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+.ib .ix{font-size:12px;color:#CBD5E1;line-height:1.6}
+.ii{padding:8px 12px;margin-bottom:5px;border-radius:8px;background:rgba(255,255,255,.03)}
+.ii .ir{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+.ii .in2{font-size:11px;font-weight:600;color:#E2E8F0}.ii .is{font-size:10px;color:#94A3B8}
+.ii .il{font-size:10px;color:#64748B;line-height:1.3}
+.ft{text-align:center;padding:16px 0;margin-top:12px;border-top:1px solid rgba(148,163,184,.08);font-size:10px;color:#475569;line-height:1.6}
+.ts{font-size:10px;color:#475569;text-align:right;margin-bottom:8px}
+.badge{display:inline-block;padding:1px 5px;border-radius:3px;font-size:8px;font-weight:700;margin-left:4px}
+.badge.live{background:rgba(74,222,128,.15);color:#4ADE80}.badge.fb{background:rgba(245,158,11,.15);color:#F59E0B}
+@media(max-width:480px){.mi{flex:1 1 calc(50% - 6px);min-width:0}.pg{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="w">
+<div class="hd">
+<div class="tg">DISPATCH</div>
+<h1>Multi-Market Intelligence</h1>
+<div class="sb" id="status">데이터 로딩 중...</div>
+</div>
+<div class="ts" id="ts"></div>
+<div class="mb" id="mb"></div>
+<div class="ct">
+<button onclick="xa()">전체 펼치기</button>
+<button onclick="ca()">전체 접기</button>
+<button onclick="location.reload()">🔄 새로고침</button>
+</div>
+<div id="cards"></div>
+<div class="ft">본 뉴스레터는 정보 제공 목적이며 투자 권유가 아닙니다.<br>
+실시간: Yahoo Finance / CoinGecko API · Fallback: 마지막 확인 종가<br>
+석탄 HBA/ICI: 주간/격주 공시 기준 · © 2026 Dispatch Intelligence</div>
+</div>
+<script>
+// === FALLBACK DATA (shown when API fails) ===
+const FB={
+"^GSPC":{v:6581,p:6506.52,d:"3/28"},"^DJI":{v:46208,p:45577,d:"3/28"},
+"^IXIC":{v:21947,p:21648,d:"3/28"},"^VIX":{v:26.15,p:26.78,d:"3/28"},
+"KRW=X":{v:1459,p:1457,d:"3/28"},"CL=F":{v:91.32,p:88.13,d:"3/28"},
+"GC=F":{v:4899,p:5046,d:"3/28"},"DX-Y.NYB":{v:99.12,p:98.93,d:"3/28"},
+"QS=F":{v:133.94,p:131.99,d:"3/27"},
+"HG=F":{v:5.48,p:5.49,d:"3/28"},
+"BHP":{v:68.82,p:68.77,d:"3/28"},
+"CCJ":{v:103.92,p:104.67,d:"3/27"},
+"005930.KS":{v:179700,p:180100,d:"3/28"},
+"010120.KS":{v:844000,p:813000,d:"3/25"},
+"005380.KS":{v:495000,p:490000,d:"3/28"},
+"278470.KS":{v:334500,p:324500,d:"3/24"},
+"483650.KS":{v:171900,p:170300,d:"2/26"},
+"TSLA":{v:361.83,p:372.11,d:"3/28"},
+};
+const FB_CRYPTO={bitcoin:{usd:66616,usd_24h_change:-3.85},ethereum:{usd:1998,usd_24h_change:-2.11}};
+
+// === SYMBOLS ===
+const MS=[
+{id:"sp",s:"^GSPC",l:"S&P 500"},{id:"dj",s:"^DJI",l:"Dow Jones"},
+{id:"nq",s:"^IXIC",l:"NASDAQ"},{id:"vx",s:"^VIX",l:"VIX"},
+{id:"kr",s:"KRW=X",l:"USD/KRW"},{id:"wt",s:"CL=F",l:"WTI 원유"},
+{id:"gd",s:"GC=F",l:"금 (Gold)"},{id:"dx",s:"DX-Y.NYB",l:"Dollar Index"}
+];
+
+const LV={
+nc:{s:"QS=F",l:"Newcastle Coal",u:"/ton",lk:"https://finance.yahoo.com/quote/QS%3DF/"},
+cu:{s:"HG=F",l:"COMEX Copper",u:"/lb",lk:"https://finance.yahoo.com/quote/HG%3DF/"},
+bh:{s:"BHP",l:"BHP Group",u:"",lk:"https://finance.yahoo.com/quote/BHP/"},
+cc:{s:"CCJ",l:"Cameco (CCJ)",u:"",lk:"https://finance.yahoo.com/quote/CCJ/"},
+ss:{s:"005930.KS",l:"삼성전자",u:"",lk:"https://finance.naver.com/item/main.naver?code=005930"},
+ls:{s:"010120.KS",l:"LS Electric",u:"",lk:"https://finance.naver.com/item/main.naver?code=010120"},
+hy:{s:"005380.KS",l:"현대자동차",u:"",lk:"https://finance.naver.com/item/main.naver?code=005380"},
+ap:{s:"278470.KS",l:"APR",u:"",lk:"https://finance.naver.com/item/main.naver?code=278470"},
+db:{s:"483650.KS",l:"달바글로벌",u:"",lk:"https://finance.naver.com/item/main.naver?code=483650"},
+ts:{s:"TSLA",l:"Tesla (TSLA)",u:"",lk:"https://finance.yahoo.com/quote/TSLA/"},
+};
+
+// === SECTORS ===
+const SC={
+coal:{nm:"석탄 (Coal)",ic:"⛏️",co:"#F97316",lk:["nc"],
+sp:[
+{l:"HBA (GAR 6322)",v:"$103.01",u:"/ton",c:"+0.63%",p:"$102.37",n:"Mar P2 (bi-weekly)",lk:"https://coaltradeindo.com/hba-coal-index-price/"},
+{l:"HBA I (5300)",v:"$71.29",u:"/ton",c:"-0.63%",p:"$71.74",n:"bi-weekly",lk:"https://coaltradeindo.com/hba-coal-index-price/"},
+{l:"HBA II (4100)",v:"$47.64",u:"/ton",c:"+0.63%",p:"$47.34",n:"bi-weekly",lk:"https://coaltradeindo.com/hba-coal-index-price/"},
+{l:"ICI 4 (GAR 4200)",v:"$47.70",u:"/ton",c:"-",p:"$56 (spot)",n:"Weekly",lk:"https://coaltradeindo.com/indonesian-coal-price/"},
+{l:"Coking Coal",v:"~$227",u:"/t FOB",c:"+20.8%",p:"$187.90",n:"Jan avg (monthly)",lk:"https://tradingeconomics.com/commodity/coking-coal"},
+],
+nw:[
+{h:"러시아 석탄 수출 차질 — 핀란드만 결빙 + 드론 공격으로 항만 마비",s:"globalCOAL",d:"03.28",t:"유럽 석탄 선물 4일 연속 상승",lk:"https://www.globalcoal.com/news-events/news.cfm"},
+{h:"인도 NITI Aayog: 2050년까지 석탄 수요 2배 증가 전망",s:"globalCOAL",d:"03.28",t:"세계 2위 소비국 장기 수요 확대",lk:"https://www.globalcoal.com/news-events/news.cfm"},
+{h:"인도네시아 2026 생산 목표 ~600Mt (전년 790Mt)",s:"IDNFinancials",d:"03.04",t:"감산으로 가격 안정화 추진",lk:"https://www.idnfinancials.com/news/61021/benchmark-coal-price-for-early-february-rises-to-usd-106-11-per-tonne"},
+{h:"中 석탄운송협회, 수입 전망 465Mt로 하향",s:"Trading Economics",d:"02.10",t:"국내 생산 4.86Bt 전망",lk:"https://tradingeconomics.com/commodity/coal"},
+],
+ins:"인니 감산(~25%) + 러시아 항만 마비 → 공급 압력. 중국 수입 전망 하향 → 수요 불확실. Newcastle $130대 유지 시 인니 광산주 긍정. 중국 재고·여름 전력 수요가 핵심 변수.",
+ind:[{n:"중국 석탄 재고",s:"📊 3,000만톤+",r:"재고↑ = 수입↓ = 가격↓"},{n:"인니 생산 쿼터",s:"🔻 600Mt 감산",r:"해상열탄 40% 차지"},{n:"호주 QLD 기상",s:"⚠️ 정상화 중",r:"코킹콜 30% 의존"}]},
+
+copper:{nm:"구리 (Copper)",ic:"🔶",co:"#DC2626",lk:["cu","bh"],sp:[],
+nw:[
+{h:"유가 $103 — 이란 Bab el-Mandeb 봉쇄 위협",s:"24/7 Wall St.",d:"03.28",t:"원자재 시장 급변동",lk:"https://247wallst.com/investing/2026/03/28/why-is-crypto-crashing-bitcoin-xrp-ethereum-and-solana-all-down-this-week/"},
+{h:"Rio Tinto, Arizona 구리광산 $500M 탐사",s:"Metal.com",d:"03.26",t:"미국 구리 공급 확대",lk:"https://www.metal.com/prices/LME_CA_3M"},
+{h:"한국, 핵심광물 관세 면제 추진",s:"Metal.com",d:"03.26",t:"구리 수입 비용 절감",lk:"https://www.metal.com/prices/LME_CA_3M"},
+],
+ins:"구리 역사적 고점 근처 횡보. AI 데이터센터·EV가 구조적 수요. 중국 둔화 우려가 상단 제한. BHP Olympic Dam 확장(2026 FID) 중장기 촉매.",
+ind:[{n:"LME 창고 재고",s:"📉 하락",r:"backwardation = 가격↑"},{n:"중국 PMI",s:"📊 50선",r:"구리 소비 50%"},{n:"EV·DC 투자",s:"📈 구조적↑",r:"연간 3-5% 추가 수요"}]},
+
+uranium:{nm:"우라늄 (Uranium)",ic:"☢️",co:"#16A34A",lk:["cc"],
+sp:[{l:"U3O8 Spot",v:"~$90-95",u:"/lb",c:"보합",p:"~$86(LT)",n:"스팟 보합, LT↑",lk:"https://www.cameco.com/invest/markets/uranium-price"}],
+nw:[
+{h:"Cameco, 인도와 9년 ~2,200만lb 공급 계약 ($2.6B)",s:"Cameco IR",d:"02",t:"기준가 $86.95/lb",lk:"https://www.stocktitan.net/news/CCJ/"},
+{h:"Fitch, 우라늄 수급 긴축 언급",s:"GMK Center",d:"03.14",t:"supply discipline 유지",lk:"https://gmk.center/en/news/fitch-ratings-has-raised-its-price-outlook-for-iron-ore-and-coking-coal-for-2026/"},
+{h:"고리 원전 2호기 재가동 절차",s:"TradeTech",d:"03",t:"한국 원전 수명연장",lk:"https://www.uranium.info/"},
+],
+ins:"스팟 $90대, LT $86→$95+. Cameco '상한 $130-140' 원해 대형 계약 시 급등 가능. CCJ $100 지지 테스트 중.",
+ind:[{n:"LT U3O8",s:"📈 $95+",r:"변곡점 신호"},{n:"원전 가동/신규",s:"📈 확장",r:"구조적 수요"},{n:"카자흐 생산",s:"⚠️ 하회",r:"스팟 지지"}]},
+
+samsung:{nm:"삼성전자",ic:"📱",co:"#1D4ED8",lk:["ss"],sp:[],
+nw:[
+{h:"'BTS WORLD TOUR ARIRANG' 글로벌 파트너십",s:"Samsung Newsroom",d:"03.29",t:"Galaxy S26 AI 체험존 운영",lk:"https://news.samsung.com/global/"},
+{h:"GTC 2026 HBM4E 공개 — NVIDIA 파트너십 강화",s:"Samsung Newsroom",d:"03",t:"차세대 HBM 경쟁 재진입",lk:"https://news.samsung.com/global/category/press-resources/press-release"},
+{h:"Google TurboQuant — 메모리 수요 6배 절감 가능성",s:"CNBC",d:"03.26",t:"메모리주 급락, '매수 기회' 평가",lk:"https://www.cnbc.com/quotes/SSNLF"},
+{h:"삼성-AMD AI 메모리 전략 협력 확대",s:"Samsung Newsroom",d:"03.18",t:"HBM 수주 다각화",lk:"https://news.samsung.com/global/latest"},
+],
+ins:"HBM4E + AMD 파트너십으로 수주 다각화. TurboQuant 조정 속 HBM 구조적 성장 유지. 4/23 Q1 실적에서 HBM 점유율·파운드리 가이던스 주시.",
+ind:[{n:"DRAM/NAND 스팟",s:"📉 조정",r:"DS부문 핵심"},{n:"HBM 점유율",s:"⚠️ 추격 중",r:"AI 서버 수주 열쇠"},{n:"파운드리",s:"📈 회복",r:"2nm = TSMC 경쟁력"}]},
+
+lselectric:{nm:"LS Electric",ic:"⚡",co:"#7C3AED",lk:["ls"],sp:[],
+nw:[
+{h:"북미 데이터센터 전력인프라 수주 확대",s:"한국경제",d:"02",t:"배전반 매출 Q4 사상 최대 실적 견인",lk:"https://markets.hankyung.com/stock/010120"},
+{h:"해외 핵심광물 관세 면제 — LS그룹 수혜",s:"Metal.com",d:"03.26",t:"원자재 수입 비용 절감",lk:"https://www.metal.com/prices/LME_CA_3M"},
+],
+ins:"AI DC 전력 인프라 핵심 수혜. 유안타 목표가 ₩735K→상향, 2026 가이던스 OP +30~35%. 북미 배전반이 사상 최대 실적 견인. 목표가 대비 이미 상회.",
+ind:[{n:"미국 DC 투자",s:"📈 연 $100B+",r:"전력인프라 직접 동력"},{n:"원/달러",s:"📈 수출마진↑",r:"달러 매출 레버리지"}]},
+
+hyundai:{nm:"현대자동차",ic:"🚗",co:"#0284C7",lk:["hy"],sp:[],
+nw:[
+{h:"BYD 사상 최대 이익 — 글로벌 EV 경쟁 재편",s:"CNBC",d:"03.27",t:"현대·기아 EV 경쟁 압력",lk:"https://www.cnbc.com/quotes/TSLA"},
+{h:"Jefferies, AI 로봇 수혜주 — Boston Dynamics 보유",s:"CNBC",d:"03.26",t:"로보틱스 밸류 재평가",lk:"https://www.cnbc.com/quotes/TSLA"},
+{h:"Citi, VW '방산 피벗' — 독일 완성차 재평가",s:"CNBC",d:"03.26",t:"유럽 경쟁 구도 변화",lk:"https://www.cnbc.com/quotes/TSLA"},
+],
+ins:"28명 전원 매수(목표 ₩630K). Boston Dynamics AI + 미국 메타플랜트 = 중장기 촉매. BYD 가격전략·관세 불확실성 리스크.",
+ind:[{n:"글로벌 EV 판매",s:"📈 경쟁 심화",r:"아이오닉·기아 점유율"},{n:"미국 관세",s:"⚠️ 변동성",r:"미국 공장 전략"}]},
+
+kbeauty:{nm:"K-Beauty",ic:"✨",co:"#EC4899",lk:["ap","db"],sp:[],
+nw:[
+{h:"APR, 사상 최고가 경신 후 차익실현",s:"TradingView",d:"03.16",t:"+480% 상승 후 조정",lk:"https://www.tradingview.com/symbols/KRX-278470/"},
+{h:"달바글로벌, 일본 드럭스토어 진출 — 2,000개 매장",s:"데일리인베스트",d:"2025.10",t:"Costco·Ulta·Target 추진",lk:"http://www.dailyinvest.kr/news/articleView.html?idxno=69035"},
+{h:"메리츠, 달바 글로벌 전략 순항",s:"Investing.com",d:"02",t:"매출 +40% 컨센 보수적",lk:"https://kr.investing.com/equities/d%27alba-global"},
+],
+ins:"APR 26명 전원 매수(₩345K~₩450K). 달바 일본·북미 확장 2026 핵심. 마케팅비↑ → 단기 수익성 둔화 리스크.",
+ind:[{n:"K-Beauty 수출액",s:"📈 사상 최대",r:"해외 매출 확대"},{n:"오프라인 입점",s:"📈 확장 중",r:"매출 스케일업 핵심"}]},
+
+tesla:{nm:"Tesla",ic:"🚀",co:"#EF4444",lk:["ts"],sp:[],
+nw:[
+{h:"Grok AI 누드 생성 중단 — 네덜란드 법원",s:"CNBC",d:"03.27",t:"EU 규제 리스크",lk:"https://www.cnbc.com/quotes/TSLA"},
+{h:"BYD 사상 최대 이익, Tesla 추월 확대",s:"TipRanks",d:"03.27",t:"중국 EV BYD 우위",lk:"https://www.cnbc.com/quotes/TSLA"},
+{h:"딜리버리 '촉매' — Deepwater Munster",s:"CNBC",d:"03.28",t:"4월 초 Q1 핵심",lk:"https://www.cnbc.com/quotes/TSLA"},
+{h:"Musk SpaceX IPO + X 구조조정",s:"WSJ",d:"03.27",t:"CEO 관심 분산",lk:"https://www.cnbc.com/quotes/TSLA"},
+],
+ins:"ATH $498 대비 조정. Hold 컨센, 목표 $397. Optimus·FSD·$20B+ CapEx 중장기 촉매. 4/28 Q1·딜리버리 핵심.",
+ind:[{n:"딜리버리",s:"⚠️ 4월 초",r:"단기 최대 촉매"},{n:"FSD/로보택시",s:"📊 테스트 중",r:"밸류에이션 핵심"}]},
+
+crypto:{nm:"암호화폐",ic:"₿",co:"#F59E0B",lk:[],sp:[],
+nw:[
+{h:"BTC $66K — $14.16B 옵션 만기 + 이란 해상 봉쇄",s:"24/7 Wall St.",d:"03.28",t:"$450M+ 청산, 유가 $103",lk:"https://247wallst.com/investing/2026/03/28/why-is-crypto-crashing-bitcoin-xrp-ethereum-and-solana-all-down-this-week/"},
+{h:"사상 첫 BTC·ETH·SOL ETF 동시 순유출",s:"24/7 Wall St.",d:"03.28",t:"BTC -$171M, ETH -$92.5M",lk:"https://247wallst.com/investing/2026/03/28/why-is-crypto-crashing-bitcoin-xrp-ethereum-and-solana-all-down-this-week/"},
+{h:"BTC YTD -20% — Clarity Act 리스크",s:"Motley Fool",d:"03.28",t:"규제+금리 하방 요인",lk:"https://www.fool.com/investing/2026/03/25/bitcoin-is-down-20-in-2026-heres-why-things-could/"},
+{h:"고래 61,568 BTC 순매수 (한 달)",s:"CryptoNews",d:"03.27",t:"장단기 '분기' 시 강세 전환",lk:"https://cryptonews.net/news/bitcoin/32612289/"},
+],
+ins:"$14B 옵션만기 + 이란 봉쇄로 $66K 급락. ETF 동시 순유출, F&G 12. 스테이블코인 $316B + 고래 축적 = 중기 저점 신호.",
+ind:[{n:"Fear & Greed",s:"🔴 12",r:"극단 공포 = 저점 형성"},{n:"ETF 순유출입",s:"📉 동시 유출",r:"기관 센티먼트"},{n:"이란/유가",s:"⚠️ $100+",r:"위험자산 핵심"}]},
+};
+
+// === API FETCH WITH MULTI-PROXY FALLBACK ===
+const PROXIES=["https://corsproxy.io/?url=","https://api.allorigins.win/raw?url="];
+let apiOk=false;
+
+async function yf(sym){
+const url="https://query1.finance.yahoo.com/v8/finance/chart/"+encodeURIComponent(sym)+"?range=5d&interval=1d";
+for(const px of PROXIES){
+try{
+const r=await fetch(px+encodeURIComponent(url),{signal:AbortSignal.timeout(5000)});
+if(!r.ok)continue;
+const d=await r.json(),q=d.chart.result[0],cl=q.indicators.quote[0].close.filter(c=>c!=null);
+if(cl.length<2)continue;
+apiOk=true;
+return{last:cl[cl.length-1],prev:cl[cl.length-2],ts:q.timestamp?q.timestamp[q.timestamp.length-1]:null,live:true};
+}catch(e){continue;}
+}
+// Fallback to static
+const fb=FB[sym];
+if(fb)return{last:fb.v,prev:fb.p,ts:null,live:false,date:fb.d};
+return null;
+}
+
+async function cg(){
+try{
+const r=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true",{signal:AbortSignal.timeout(5000)});
+if(!r.ok)throw 0;
+apiOk=true;
+const d=await r.json();d._live=true;return d;
+}catch(e){const f=JSON.parse(JSON.stringify(FB_CRYPTO));f._live=false;return f;}
+}
+
+function fm(n,k){if(k)return"₩"+Math.round(n).toLocaleString();return n>=100?"$"+n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}):"$"+n.toFixed(2);}
+function fc(a,b){const p=(a-b)/b*100;return{t:(p>=0?"+":"")+p.toFixed(2)+"%",c:p>=0?"up":"dn"};}
+function td(d){if(!d)return"";const dt=new Date(d*1000);return(dt.getMonth()+1)+"/"+dt.getDate();}
+
+// === RENDER ===
+function spb(p){const c=p.c.startsWith("+")?'up':p.c.startsWith("-")?'dn':'fl';return`<div class="pb"><div class="pl">${p.lk?`<a href="${p.lk}" target="_blank">${p.l}</a>`:p.l}</div><div class="pv2">${p.v}<span class="un">${p.u||""}</span></div><div class="pr"><span class="${c}">${p.c}</span><span class="pp">전일 ${p.p}</span></div>${p.n?`<div class="pn">${p.n}</div>`:""}</div>`;}
+
+function render(){
+document.getElementById("mb").innerHTML=MS.map(m=>`<div class="mi" id="m-${m.id}"><div class="ml">${m.l}</div><div class="mv fl">...</div><div class="mc fl">-</div></div>`).join("");
+let h="";
+Object.entries(SC).forEach(([k,s],i)=>{
+const op=i===0;
+h+=`<div class="cd${op?" op":""}" id="c-${k}"><div class="ch" onclick="tg('${k}')" ${op?`style="background:linear-gradient(135deg,${s.co}15,transparent)"`:""}>
+<div class="cl"><span class="ci">${s.ic}</span><span class="cn">${s.nm}</span></div>
+<div class="cr"><div class="ps" id="h-${k}"><div class="pv fl">...</div></div><span class="aw">▼</span></div>
+</div><div class="cx"><div class="pg" id="pg-${k}">
+${s.lk.map(x=>{const c=LV[x];return`<div class="pb" id="lv-${x}"><div class="pl"><a href="${c.lk}" target="_blank">${c.l}</a></div><div class="pv2 fl">로딩 중...</div></div>`;}).join("")}
+${k==="crypto"?`<div class="pb" id="lv-btc"><div class="pl"><a href="https://www.coingecko.com/en/coins/bitcoin" target="_blank">Bitcoin (BTC)</a></div><div class="pv2 fl">로딩 중...</div></div><div class="pb" id="lv-eth"><div class="pl"><a href="https://www.coingecko.com/en/coins/ethereum" target="_blank">Ethereum (ETH)</a></div><div class="pv2 fl">로딩 중...</div></div>`:""}
+${(s.sp||[]).map(p=>spb(p)).join("")}
+</div>
+<div style="margin-bottom:14px"><div class="st" style="color:${s.co}">📰 주요 뉴스 & 이슈</div>
+${s.nw.map(n=>`<div class="ni" style="border-left-color:${s.co}55"><div class="nh">${n.h}</div><div class="nd">${n.t}</div><div class="ns">${n.lk?`<a href="${n.lk}" target="_blank">${n.s}</a>`:n.s} · ${n.d}</div></div>`).join("")}
+</div>
+<div class="ib" style="background:linear-gradient(135deg,${s.co}10,${s.co}05);border-color:${s.co}30"><div class="it" style="color:${s.co}">💡 투자 인사이트</div><div class="ix">${s.ins}</div></div>
+<div><div class="st" style="color:${s.co}">📊 선행 지표</div>
+${s.ind.map(x=>`<div class="ii"><div class="ir"><span class="in2">${x.n}</span><span class="is">${x.s}</span></div><div class="il">→ ${x.r}</div></div>`).join("")}
+</div></div></div>`;
+});
+document.getElementById("cards").innerHTML=h;
+}
+
+function ulb(id,d,k){
+const el=document.getElementById(id);if(!el||!d)return;
+const ch=fc(d.last,d.prev),dt=d.live?td(d.ts)+" 종가":(d.date||"")+" 종가";
+const badge=d.live?'<span class="badge live">LIVE</span>':'<span class="badge fb">FALLBACK</span>';
+const lnk=el.querySelector(".pl").innerHTML;
+el.innerHTML=`<div class="pl">${lnk} ${badge}</div><div class="pv2">${fm(d.last,k)}</div><div class="pr"><span class="${ch.c}">${ch.t}</span><span class="pp">전일 ${fm(d.prev,k)}</span></div><div class="pn">${d.live?'<span class="ld on"></span>':'<span class="ld off"></span>'}${dt}</div>`;
+}
+
+function tg(k){const c=document.getElementById("c-"+k);c.classList.toggle("op");const h=c.querySelector(".ch"),s=SC[k];h.style.background=c.classList.contains("op")?`linear-gradient(135deg,${s.co}15,transparent)`:"transparent";c.style.borderColor=c.classList.contains("op")?s.co+"55":"rgba(148,163,184,.12)";}
+function xa(){Object.keys(SC).forEach(k=>{const c=document.getElementById("c-"+k);if(!c.classList.contains("op"))tg(k);})}
+function ca(){Object.keys(SC).forEach(k=>{const c=document.getElementById("c-"+k);if(c.classList.contains("op"))tg(k);})}
+
+// === LOAD ALL ===
+async function load(){
+document.getElementById("ts").innerHTML=`로딩 중... ${new Date().toLocaleString("ko-KR")}`;
+// Macro
+const macroResults=await Promise.all(MS.map(m=>yf(m.s)));
+MS.forEach((m,i)=>{
+const el=document.getElementById("m-"+m.id),d=macroResults[i];if(!el)return;
+if(!d){el.querySelector(".mv").textContent="N/A";return;}
+const ch=fc(d.last,d.prev),isK=m.id==="kr";
+el.querySelector(".mv").textContent=isK?"₩"+Math.round(d.last).toLocaleString():d.last.toLocaleString(undefined,{maximumFractionDigits:2});
+el.querySelector(".mv").classList.remove("fl");
+el.querySelector(".mc").textContent=ch.t;el.querySelector(".mc").className="mc "+ch.c;
+});
+// Sector live prices
+const liveResults={};
+await Promise.all(Object.entries(LV).map(async([k,c])=>{
+const isK=c.s.endsWith(".KS"),d=await yf(c.s);
+liveResults[k]=d;
+ulb("lv-"+k,d,isK);
+Object.entries(SC).forEach(([sk,sv])=>{
+if(sv.lk[0]===k&&d){
+const ch=fc(d.last,d.prev),he=document.getElementById("h-"+sk);
+if(he)he.innerHTML=`<div class="pv">${fm(d.last,isK)}</div><div class="pc ${ch.c}">${ch.t}</div>`;
+}});
+}));
+// Crypto
+const cr=await cg();
+["bitcoin","ethereum"].forEach(id=>{
+const el=document.getElementById("lv-"+(id==="bitcoin"?"btc":"eth"));
+if(!el||!cr||!cr[id])return;
+const p=cr[id],ch=p.usd_24h_change,isLive=cr._live;
+const badge=isLive?'<span class="badge live">LIVE</span>':'<span class="badge fb">FALLBACK</span>';
+const lnk=el.querySelector(".pl").innerHTML;
+el.innerHTML=`<div class="pl">${lnk} ${badge}</div><div class="pv2">$${p.usd.toLocaleString(undefined,{maximumFractionDigits:2})}</div><div class="pr"><span class="${ch>=0?"up":"dn"}">${ch>=0?"+":""}${ch.toFixed(2)}%</span><span class="pp">24h 변동</span></div><div class="pn">${isLive?'<span class="ld on"></span>CoinGecko Live':'<span class="ld off"></span>Fallback 데이터'}</div>`;
+});
+const he=document.getElementById("h-crypto");
+if(he&&cr&&cr.bitcoin){const ch=cr.bitcoin.usd_24h_change;he.innerHTML=`<div class="pv">$${cr.bitcoin.usd.toLocaleString(undefined,{maximumFractionDigits:0})}</div><div class="pc ${ch>=0?"up":"dn"}">${ch>=0?"+":""}${ch.toFixed(2)}%</div>`;}
+// Status
+const now=new Date().toLocaleString("ko-KR");
+if(apiOk){
+document.getElementById("status").innerHTML=`<span class="ld on"></span>실시간 가격 자동 갱신 · Yahoo Finance / CoinGecko API`;
+document.getElementById("ts").innerHTML=`<span class="ld on"></span>마지막 갱신: ${now} · 새로고침 시 자동 업데이트`;
+}else{
+document.getElementById("status").innerHTML=`<span class="ld off"></span>Fallback 모드 · API 접근 불가 시 마지막 확인 종가 표시`;
+document.getElementById("ts").innerHTML=`<span class="ld off"></span>${now} · API 연결 실패 → Fallback 데이터 사용 중 · GitHub Pages에서 실시간 작동`;
+}
+}
+
+render();load();
+</script>
+</body>
+</html>
