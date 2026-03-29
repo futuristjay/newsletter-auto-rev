@@ -68,7 +68,7 @@ RULES:
 
     body = json.dumps({
         "model": "claude-sonnet-4-20250514",
-        "max_tokens": 4000,
+        "max_tokens": 8000,
         "system": system,
         "messages": [{"role": "user", "content": f"오늘({date_kr}) 멀티마켓 뉴스레터를 생성해주세요."}],
         "tools": [{"type": "web_search_20250305", "name": "web_search"}],
@@ -98,12 +98,17 @@ RULES:
         print("ERROR: no text in API response")
         sys.exit(1)
 
-    cleaned = "\n".join(texts).replace("```json", "").replace("```", "").strip()
+   cleaned = "\n".join(texts).replace("```json", "").replace("```", "").strip()
+    if not cleaned.endswith("}"):
+        last_brace = cleaned.rfind("}")
+        if last_brace > 0:
+            cleaned = cleaned[:last_brace + 1]
     try:
         newsletter = json.loads(cleaned)
     except json.JSONDecodeError as e:
         print(f"JSON parse error: {e}")
         print(f"Response preview: {cleaned[:500]}")
+        print(f"Response end: {cleaned[-200:]}")
         sys.exit(1)
 
     with open("data/newsletter.json", "w", encoding="utf-8") as f:
