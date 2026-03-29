@@ -474,7 +474,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .header-meta{font-family:var(--mono);font-size:10px;color:var(--faint);text-align:right}
 .ticker-wrap{overflow-x:auto;margin-bottom:12px;padding-bottom:4px;scrollbar-width:none}
 .ticker-wrap::-webkit-scrollbar{display:none}
-.ticker{display:flex;gap:5px;width:max-content}
+.ticker{display:flex;gap:5px;width:max-content;animation:tickerScroll 50s linear infinite}.ticker-wrap:hover .ticker{animation-play-state:paused}@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .tick{border-radius:8px;padding:7px 10px;min-width:80px;border:1px solid var(--border)}
 .tick-coal{background:var(--coal-bg);border-color:rgba(255,107,53,.25)}
 .tick-mkt{background:var(--bg2)}
@@ -542,7 +542,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   <div class="logo">MARKET INTELLIGENCE</div>
   <div class="header-meta">{n["date_kr"]}<br>KST AUTO-GENERATED</div>
 </div>
-<div class="ticker-wrap"><div class="ticker">{tick_html}</div></div>
+<div class="ticker-wrap"><div class="ticker">{tick_html}{tick_html}</div></div>
 <div class="macro-strip">{macro_html}</div>
 <div class="sec-label">COAL — FULL DETAIL</div>
 {coal_html}
