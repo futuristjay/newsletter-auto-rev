@@ -31,113 +31,188 @@ jobs:
           NOW = datetime.now(KST)
           DATE_STR = NOW.strftime("%Y-%m-%d")
           DATE_KR = NOW.strftime("%Y년 %m월 %d일")
-          HDR = {"User-Agent": "Mozilla/5.0"}
+          HDR = dict()
+          HDR["User-Agent"] = "Mozilla/5.0"
 
           def fetch(url):
               try:
                   r = urlopen(Request(url, headers=HDR), timeout=15)
                   return r.read().decode("utf-8", errors="replace")
-              except: return ""
+              except:
+                  return ""
 
           def xnum(text, pats):
               for p in pats:
                   m = re.search(p, text)
                   if m:
-                      try: return float(m.group(1).replace(",",""))
-                      except: pass
+                      try:
+                          return float(m.group(1).replace(",",""))
+                      except:
+                          pass
               return None
 
-          # SCRAPE
           print("=== SCRAPING ===")
-          data = {}
-          for name, url, pats, unit in [
+          data = dict()
+          sources = [
               ("Newcastle 6000", "https://www.oilpriceapi.com/live/coal-price", [r"Coal NOW: \$?([\d,.]+)"], "$/t"),
               ("HBA Indonesia", "https://coaltradeindo.com/hba-coal-index-price/", [r"HBA.*?GAR 6322.*?\$([\d,.]+)",r"HBA1.*?\$([\d,.]+)"], "$/t"),
               ("Coking Coal", "https://tradingeconomics.com/commodity/coking-coal", [r"Coking Coal.*?rose to ([\d,.]+)",r"Coking Coal.*?([\d,.]+) USD"], "$/t"),
-          ]:
+          ]
+          for name, url, pats, unit in sources:
               v = xnum(fetch(url), pats)
-              data[name] = {"value": v, "unit": unit, "source": url.split("/")[2]}
+              entry = dict()
+              entry["value"] = v
+              entry["unit"] = unit
+              entry["source"] = url.split("/")[2]
+              data[name] = entry
               print(f"  {name}: {v}")
 
-          # ANALYZE
           print("\n=== ANALYZING ===")
           api_key = os.environ.get("ANTHROPIC_API_KEY")
-          if not api_key: print("NO KEY"); sys.exit(1)
+          if not api_key:
+              print("NO KEY")
+              sys.exit(1)
 
           def ask(q):
-              body = json.dumps({"model":"claude-sonnet-4-20250514","max_tokens":1024,"messages":[{"role":"user","content":q}]}).encode()
+              msg = [dict(role="user", content=q)]
+              body = json.dumps(dict(model="claude-sonnet-4-20250514", max_tokens=1024, messages=msg)).encode()
               for i in range(3):
                   try:
-                      req = Request("https://api.anthropic.com/v1/messages",data=body,headers={"Content-Type":"application/json","x-api-key":api_key,"anthropic-version":"2023-06-01"},method="POST")
+                      h = dict()
+                      h["Content-Type"] = "application/json"
+                      h["x-api-key"] = api_key
+                      h["anthropic-version"] = "2023-06-01"
+                      req = Request("https://api.anthropic.com/v1/messages", data=body, headers=h, method="POST")
                       with urlopen(req, timeout=90) as r:
                           res = json.loads(r.read().decode())
-                      return "".join(b.get("text","") for b in res.get("content",[]) if b.get("type")=="text").strip()
+                      parts = res.get("content", [])
+                      txt = ""
+                      for b in parts:
+                          if b.get("type") == "text":
+                              txt += b.get("text", "")
+                      return txt.strip()
                   except HTTPError as e:
-                      if e.code==429: time.sleep(60*(i+1)); continue
-                      print(f"HTTP {e.code}"); sys.exit(1)
+                      if e.code == 429:
+                          w = 60 * (i + 1)
+                          print(f"  429, waiting {w}s...")
+                          time.sleep(w)
+                          continue
+                      print(f"  HTTP {e.code}")
+                      sys.exit(1)
               sys.exit(1)
 
           dp = json.dumps(data, ensure_ascii=False)
           print("Asking coal...")
-          coal = ask(f"오늘:{DATE_KR}. 데이터:{dp}\n\n한국어로 답해. 번호만 붙여서:\n1.석탄 헤드라인\n2.인도네시아\n3.중국\n4.인도\n5.전망")
+          coal = ask(f"오늘은 {DATE_KR}. 석탄 시장 데이터: {dp}\n\n한국어로 답해. 번호만 붙여서:\n1.석탄 헤드라인\n2.인도네시아\n3.중국\n4.인도\n5.전망")
           print(f"  Got {len(coal)} chars")
           time.sleep(5)
           print("Asking sectors...")
-          sectors = ask(f"오늘:{DATE_KR}. 데이터:{dp}\n\n한국어로 답해. 번호만 붙여서:\n1.구리\n2.우라늄\n3.삼성전자\n4.LS Electric\n5.현대차\n6.K-Beauty\n7.Tesla/테크\n8.매크로")
+          sectors = ask(f"오늘은 {DATE_KR}. 시장 데이터: {dp}\n\n한국어로 답해. 번호만 붙여서:\n1.구리\n2.우라늄\n3.삼성전자\n4.LS Electric\n5.현대차\n6.K-Beauty\n7.Tesla/테크\n8.매크로")
           print(f"  Got {len(sectors)} chars")
 
           def plines(t):
-              r={}
-              for l in t.split("\n"):
-                  l=l.strip()
-                  for i in range(1,10):
-                      for pfx in [f"{i}.",f"{i})",f"{i}:"]:
-                          if l.startswith(pfx):
-                              r[i]=l[len(pfx):].strip()
+              r = dict()
+              for line in t.split("\n"):
+                  line = line.strip()
+                  for i in range(1, 10):
+                      for pfx in [f"{i}.", f"{i})", f"{i}:"]:
+                          if line.startswith(pfx):
+                              r[i] = line[len(pfx):].strip()
               return r
 
-          cl=plines(coal); sl=plines(sectors)
-          ticker=[]
-          for k,v in data.items():
-              if v.get("value"):
-                  ticker.append({"label":k,"value":f"{v['unit']}{v['value']}","change":"—","trend":"STABLE","source":v["source"],"date":DATE_STR})
+          cl = plines(coal)
+          sl = plines(sectors)
 
-          newsletter={
-              "date":DATE_STR,"date_kr":DATE_KR,"ticker":ticker,
-              "coal":{"briefHeadline":cl.get(1,""),"briefText":cl.get(1,""),"articles":[],"countryIndonesia":cl.get(2,""),"countryChina":cl.get(3,""),"countryIndia":cl.get(4,""),"outlook":[cl.get(5,"")]},
-              "copper":{"headline":sl.get(1,""),"summary":sl.get(1,"")},
-              "uranium":{"headline":sl.get(2,""),"summary":sl.get(2,"")},
-              "samsung":{"headline":sl.get(3,""),"summary":sl.get(3,"")},
-              "lsElectric":{"headline":sl.get(4,""),"summary":sl.get(4,"")},
-              "hyundai":{"headline":sl.get(5,""),"summary":sl.get(5,"")},
-              "kBeauty":{"headline":sl.get(6,""),"summary":sl.get(6,"")},
-              "teslaTech":{"headline":sl.get(7,""),"summary":sl.get(7,"")},
-              "macro":{"headline":sl.get(8,""),"summary":sl.get(8,"")},
-              "miniReport":{"title":"오늘의 시장","content":cl.get(1,"")+" "+sl.get(8,"")}
-          }
-          os.makedirs("data",exist_ok=True)
-          with open("data/newsletter.json","w",encoding="utf-8") as f:
-              json.dump(newsletter,f,ensure_ascii=False,indent=2)
+          ticker = []
+          for k, v in data.items():
+              if v.get("value"):
+                  t = dict()
+                  t["label"] = k
+                  t["value"] = str(v["unit"]) + str(v["value"])
+                  t["change"] = "—"
+                  t["trend"] = "STABLE"
+                  t["source"] = v["source"]
+                  t["date"] = DATE_STR
+                  ticker.append(t)
+
+          coal_section = dict()
+          coal_section["briefHeadline"] = cl.get(1, "석탄 시장 업데이트")
+          coal_section["briefText"] = cl.get(1, "")
+          coal_section["articles"] = []
+          coal_section["countryIndonesia"] = cl.get(2, "")
+          coal_section["countryChina"] = cl.get(3, "")
+          coal_section["countryIndia"] = cl.get(4, "")
+          coal_section["outlook"] = [cl.get(5, "")]
+
+          newsletter = dict()
+          newsletter["date"] = DATE_STR
+          newsletter["date_kr"] = DATE_KR
+          newsletter["ticker"] = ticker
+          newsletter["coal"] = coal_section
+          newsletter["copper"] = dict(headline=sl.get(1,""), summary=sl.get(1,""))
+          newsletter["uranium"] = dict(headline=sl.get(2,""), summary=sl.get(2,""))
+          newsletter["samsung"] = dict(headline=sl.get(3,""), summary=sl.get(3,""))
+          newsletter["lsElectric"] = dict(headline=sl.get(4,""), summary=sl.get(4,""))
+          newsletter["hyundai"] = dict(headline=sl.get(5,""), summary=sl.get(5,""))
+          newsletter["kBeauty"] = dict(headline=sl.get(6,""), summary=sl.get(6,""))
+          newsletter["teslaTech"] = dict(headline=sl.get(7,""), summary=sl.get(7,""))
+          newsletter["macro"] = dict(headline=sl.get(8,""), summary=sl.get(8,""))
+          newsletter["miniReport"] = dict(title="오늘의 시장", content=cl.get(1,"") + " " + sl.get(8,""))
+
+          os.makedirs("data", exist_ok=True)
+          with open("data/newsletter.json", "w", encoding="utf-8") as f:
+              json.dump(newsletter, f, ensure_ascii=False, indent=2)
           print(f"\n=== NEWSLETTER SAVED === Keys: {list(newsletter.keys())}")
 
           # BUILD HTML
-          d=json.dumps(newsletter,ensure_ascii=False)
-          html=f'''<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Market Intelligence</title><style>*{{box-sizing:border-box;margin:0;padding:0}}body{{font-family:sans-serif;background:#0d0b09;color:#e2d9ce;min-height:100vh;padding:20px}}.t{{font-family:monospace;font-size:16px;color:#ff8a65;font-weight:700;margin-bottom:20px}}.d{{font-family:monospace;font-size:11px;color:#57534e;margin-bottom:20px}}.s{{background:#1a1612;border:1px solid rgba(148,163,184,.1);border-radius:10px;padding:16px;margin-bottom:12px}}.h{{font-size:15px;color:#faf6f1;margin-bottom:8px}}.p{{font-size:13px;color:#a8a29e;line-height:1.6}}.tk{{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}}.ti{{background:#1a1612;border:1px solid rgba(148,163,184,.1);border-radius:8px;padding:8px 12px;font-family:monospace;font-size:12px}}.tl{{color:#57534e;font-size:10px}}.tv{{color:#faf6f1;font-weight:600}}.sec{{font-family:monospace;font-size:11px;color:#e64a19;margin:20px 0 10px;letter-spacing:.15em}}</style></head><body>'''
-          html+=f'<div class="t">⛏ MARKET INTELLIGENCE</div><div class="d">{newsletter["date_kr"]}</div>'
-          html+='<div class="tk">'
-          for t in newsletter.get("ticker",[]):
-              html+=f'<div class="ti"><div class="tl">{t["label"]}</div><div class="tv">{t["value"]}</div></div>'
-          html+='</div>'
-          c=newsletter.get("coal",dict())
-          html+=f'<div class="sec">⛏ 석탄</div><div class="s"><div class="h">{c.get("briefHeadline","")}</div><div class="p">🇮🇩 {c.get("countryIndonesia","")}</div><div class="p">🇨🇳 {c.get("countryChina","")}</div><div class="p">🇮🇳 {c.get("countryIndia","")}</div><div class="p">📈 {"; ".join(c.get("outlook",[]))}</div></div>'
-          for key,icon in [("copper","🔶"),("uranium","☢️"),("samsung","💾"),("lsElectric","⚡"),("hyundai","🚗"),("kBeauty","💄"),("teslaTech","🤖"),("macro","🌐")]:
-              sec=newsletter.get(key,dict())
-              html+=f'<div class="s"><div class="h">{icon} {sec.get("headline","")}</div><div class="p">{sec.get("summary","")}</div></div>'
-          mr=newsletter.get("miniReport",dict())
-          html+=f'<div class="sec">🔥 미니 리포트</div><div class="s"><div class="h">{mr.get("title","")}</div><div class="p">{mr.get("content","")}</div></div>'
-          html+=f'<div style="text-align:center;padding:20px;font-size:11px;color:#2a2420;font-family:monospace">MARKET INTELLIGENCE · {newsletter["date_kr"]} · 투자 참고용</div></body></html>'
-          os.makedirs("dist",exist_ok=True)
-          with open("dist/index.html","w",encoding="utf-8") as f:
+          c = newsletter.get("coal", dict())
+          outlook_text = "; ".join(c.get("outlook", []))
+
+          lines = []
+          lines.append("<!DOCTYPE html><html lang='ko'><head><meta charset='UTF-8'>")
+          lines.append("<meta name='viewport' content='width=device-width,initial-scale=1.0'>")
+          lines.append("<title>Market Intelligence</title>")
+          lines.append("<style>")
+          lines.append("*{box-sizing:border-box;margin:0;padding:0}")
+          lines.append("body{font-family:sans-serif;background:#0d0b09;color:#e2d9ce;min-height:100vh;padding:20px}")
+          lines.append(".t{font-family:monospace;font-size:16px;color:#ff8a65;font-weight:700;margin-bottom:20px}")
+          lines.append(".d{font-family:monospace;font-size:11px;color:#57534e;margin-bottom:20px}")
+          lines.append(".s{background:#1a1612;border:1px solid rgba(148,163,184,.1);border-radius:10px;padding:16px;margin-bottom:12px}")
+          lines.append(".h{font-size:15px;color:#faf6f1;margin-bottom:8px}")
+          lines.append(".p{font-size:13px;color:#a8a29e;line-height:1.6}")
+          lines.append(".tk{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}")
+          lines.append(".ti{background:#1a1612;border:1px solid rgba(148,163,184,.1);border-radius:8px;padding:8px 12px;font-family:monospace;font-size:12px}")
+          lines.append(".tl{color:#57534e;font-size:10px}")
+          lines.append(".tv{color:#faf6f1;font-weight:600}")
+          lines.append(".sec{font-family:monospace;font-size:11px;color:#e64a19;margin:20px 0 10px;letter-spacing:.15em}")
+          lines.append("</style></head><body>")
+          lines.append(f"<div class='t'>⛏ MARKET INTELLIGENCE</div>")
+          lines.append(f"<div class='d'>{newsletter['date_kr']}</div>")
+          lines.append("<div class='tk'>")
+          for t in newsletter.get("ticker", []):
+              lines.append(f"<div class='ti'><div class='tl'>{t['label']}</div><div class='tv'>{t['value']}</div></div>")
+          lines.append("</div>")
+          lines.append("<div class='sec'>⛏ 석탄</div>")
+          lines.append(f"<div class='s'><div class='h'>{c.get('briefHeadline','')}</div>")
+          lines.append(f"<div class='p'>🇮🇩 {c.get('countryIndonesia','')}</div>")
+          lines.append(f"<div class='p'>🇨🇳 {c.get('countryChina','')}</div>")
+          lines.append(f"<div class='p'>🇮🇳 {c.get('countryIndia','')}</div>")
+          lines.append(f"<div class='p'>📈 {outlook_text}</div></div>")
+
+          sector_icons = [("copper","🔶 구리"),("uranium","☢️ 우라늄"),("samsung","💾 삼성전자"),("lsElectric","⚡ LS Electric"),("hyundai","🚗 현대차"),("kBeauty","💄 K-Beauty"),("teslaTech","🤖 Tesla/테크"),("macro","🌐 매크로")]
+          for key, icon in sector_icons:
+              sec = newsletter.get(key, dict())
+              lines.append(f"<div class='s'><div class='h'>{icon}: {sec.get('headline','')}</div><div class='p'>{sec.get('summary','')}</div></div>")
+
+          mr = newsletter.get("miniReport", dict())
+          lines.append("<div class='sec'>🔥 미니 리포트</div>")
+          lines.append(f"<div class='s'><div class='h'>{mr.get('title','')}</div><div class='p'>{mr.get('content','')}</div></div>")
+          lines.append(f"<div style='text-align:center;padding:20px;font-size:11px;color:#2a2420;font-family:monospace'>MARKET INTELLIGENCE · {newsletter['date_kr']} · 투자 참고용</div>")
+          lines.append("</body></html>")
+
+          html = "\n".join(lines)
+          os.makedirs("dist", exist_ok=True)
+          with open("dist/index.html", "w", encoding="utf-8") as f:
               f.write(html)
           print(f"=== HTML SAVED === {len(html)} bytes")
           SCRIPT
