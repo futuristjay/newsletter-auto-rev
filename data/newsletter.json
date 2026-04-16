@@ -1,110 +1,103 @@
 {
-  "date": "2026-04-16",
-  "date_kr": "2026년 04월 16일",
+  "date": "2026-04-17",
+  "date_kr": "2026년 04월 17일",
   "ticker": [
     {
       "label": "Newcastle 6000",
       "type": "coal",
-      "value": 134.9,
-      "unit": "$/t",
-      "change_pct": null
-    },
-    {
-      "label": "Coking Coal",
-      "type": "coal",
-      "value": 226.0,
+      "value": 133.75,
       "unit": "$/t",
       "change_pct": null
     },
     {
       "label": "Copper",
       "type": "market",
-      "value": 6.078,
+      "value": 6.046,
       "unit": "¢/lb",
-      "change_pct": 3.53
+      "change_pct": 1.17
     },
     {
       "label": "Cameco",
       "type": "market",
-      "value": 119.11,
+      "value": 120.27,
       "unit": "$",
-      "change_pct": 2.77
+      "change_pct": 4.09
     },
     {
       "label": "삼성전자",
       "type": "market",
-      "value": 211000.0,
+      "value": 217500.0,
       "unit": "₩",
-      "change_pct": 0.24
+      "change_pct": 6.62
     },
     {
       "label": "LS Elec",
       "type": "market",
-      "value": 186800.0,
+      "value": 188600.0,
       "unit": "₩",
-      "change_pct": 18.53
+      "change_pct": 19.67
     },
     {
       "label": "Tesla",
       "type": "market",
-      "value": 391.95,
+      "value": 388.9,
       "unit": "$",
-      "change_pct": 14.19
+      "change_pct": 12.52
     },
     {
       "label": "NVIDIA",
       "type": "market",
-      "value": 198.87,
+      "value": 198.35,
       "unit": "$",
-      "change_pct": 9.22
+      "change_pct": 7.85
     },
     {
       "label": "DXY",
       "type": "market",
-      "value": 98.051,
+      "value": 98.18,
       "unit": "",
-      "change_pct": -0.61
+      "change_pct": -0.19
     },
     {
       "label": "WTI",
       "type": "market",
-      "value": 91.08,
+      "value": 89.87,
       "unit": "$",
-      "change_pct": -5.68
+      "change_pct": -9.3
     },
     {
       "label": "Gold",
       "type": "market",
-      "value": 4821.8,
+      "value": 4815.1,
       "unit": "$",
-      "change_pct": 1.26
+      "change_pct": 1.53
     },
     {
       "label": "US10Y",
       "type": "market",
-      "value": 4.282,
+      "value": 4.309,
       "unit": "%",
-      "change_pct": -0.26
+      "change_pct": -0.19
     },
     {
       "label": "VIX",
       "type": "market",
-      "value": 18.17,
+      "value": 17.94,
       "unit": "",
-      "change_pct": -6.77
+      "change_pct": -6.71
     },
     {
       "label": "KOSPI",
       "type": "market",
-      "value": 6091.39,
+      "value": 6226.05,
       "unit": "",
-      "change_pct": 3.73
+      "change_pct": 7.75
     }
   ],
   "coal": {
     "prices": {
       "Newcastle 6000": {
-        "value": 134.9,
+        "value": 133.75,
         "unit": "$/t"
       },
       "HBA Indonesia": {
@@ -112,77 +105,77 @@
         "unit": "$/t"
       },
       "Coking Coal": {
-        "value": 226.0,
+        "value": null,
         "unit": "$/t"
       }
     },
-    "headline": "**Newcastle 석탄 134.9$/톤 유지, 구리 3.53% 급등으로 원자재 강세 지속**",
-    "indonesia": "**인도네시아**: HBA 가격 정보가 공개되지 않은 상황으로, 인도네시아 정부의 DMO(국내시장의무) 정책이나 수출 쿼터 조정이 진행 중인 것으로 추정됩니다. 4월 우기 종료로 채굴 및 운송 여건이 개선되면서 공급량 증가가 예상되나, 중국 수요 회복으로 수출 물량 확보 경쟁이 치열해지고 있습니다.",
-    "china": "**중국**: H주 지수 8,718포인트 수준에서 경제 회복 기대감이 높아지면서 제철소 가동률 상승으로 코킹탄 수요가 견조한 모습입니다. 춘절 이후 인프라 투자 확대와 건설업 재개로 전력 수요가 증가하고 있으며, 연안 석탄 재고는 평년 대비 낮은 수준을 유지하고 있습니다.",
-    "india": "**인도**: 무더위 시즌 진입으로 냉방용 전력 수요가 본격 증가하기 시작해 석탄 수입 확대가 불가피한 상황입니다. 국내 석탄 생산량만으로는 급증하는 전력 수요를 충족하기 어려워 4-5월 인도네시아산 저칼로리탄 수입이 크게 늘어날 전망입니다.",
-    "outlook": "**전망**: 구리와 철광석 가격 강세가 지속되면서 석탄 시장도 상승 모멘텀을 이어갈 것으로 예상됩니다. 아시아 전력 수요 증가와 원자재 전반의 강세로 Newcastle 석탄은 140$/톤 상회 가능성이 높습니다.",
-    "leading": "**선행지표**: 구리 3.53% 급등과 BHP 3.26% 상승은 글로벌 제조업과 건설업 수요 회복을 시사하며, 이는 전력 및 철강 수요 증가로 이어져 석탄 가격 상승을 견인하는 핵심 선행지표로 작용합니다."
+    "headline": "헤드라인",
+    "indonesia": "인도네시아",
+    "china": "중국",
+    "india": "인도",
+    "outlook": "전망",
+    "leading": "선행지표"
   },
   "copper": {
-    "price": 6.078,
-    "chg": 3.53,
+    "price": 6.046,
+    "chg": 1.17,
     "bhp": 79.47,
-    "bhp_chg": 3.26,
+    "bhp_chg": 2.9,
     "text": ""
   },
   "uranium": {
-    "price": 119.11,
-    "chg": 2.77,
-    "ura": 54.84,
-    "ura_chg": 6.69,
+    "price": 120.27,
+    "chg": 4.09,
+    "ura": 55.27,
+    "ura_chg": 8.52,
     "text": ""
   },
   "samsung": {
-    "price": 211000.0,
-    "chg": 0.24,
-    "nvda": 198.87,
-    "nvda_chg": 9.22,
+    "price": 217500.0,
+    "chg": 6.62,
+    "nvda": 198.35,
+    "nvda_chg": 7.85,
     "text": ""
   },
   "lselectric": {
-    "price": 186800.0,
-    "chg": 18.53,
+    "price": 188600.0,
+    "chg": 19.67,
     "text": ""
   },
   "hyundai": {
-    "price": 508000.0,
-    "chg": 0.0,
-    "tesla": 391.95,
-    "tesla_chg": 14.19,
+    "price": 534000.0,
+    "chg": 9.09,
+    "tesla": 388.9,
+    "tesla_chg": 12.52,
     "text": ""
   },
   "kbeauty": {
-    "amore": 130500.0,
-    "amore_chg": 0.15,
-    "lghh": 249000.0,
-    "lghh_chg": 0.81,
+    "amore": 133200.0,
+    "amore_chg": 3.18,
+    "lghh": 253500.0,
+    "lghh_chg": 1.0,
     "text": ""
   },
   "teslatech": {
-    "tesla": 391.95,
-    "tesla_chg": 14.19,
-    "nvda": 198.87,
-    "nvda_chg": 9.22,
-    "msft": 411.22,
+    "tesla": 388.9,
+    "tesla_chg": 12.52,
+    "nvda": 198.35,
+    "nvda_chg": 7.85,
+    "msft": 420.26,
     "text": ""
   },
   "macro": {
-    "dxy": 98.051,
-    "wti": 91.08,
-    "gold": 4821.8,
-    "us10y": 4.282,
-    "vix": 18.17,
-    "kospi": 6091.39,
-    "sp500": 7022.95,
-    "hscei": 8718.26,
+    "dxy": 98.18,
+    "wti": 89.87,
+    "gold": 4815.1,
+    "us10y": 4.309,
+    "vix": 17.94,
+    "kospi": 6226.05,
+    "sp500": 7041.28,
+    "hscei": 8905.11,
     "text": ""
   },
   "miniReport": {
-    "content": "**2026년 4월 16일 상품 시장 브리핑**\n\n석탄 시장은 Newcastle이 $134.9/t로 안정세를 보이는 가운데, 원료탄은 $226/t 수준에서 제철 수요 회복 기대감을 반영하고 있습니다. 구리 $6.08는 글로벌 인프라 투자 확대와 전기차 보급 가속화로 중기 강세 모멘텀이 지속되고 있으며, BHP $79.47은 원자재 슈퍼사이클 수혜를 받고 있습니다. \n\n미 10년물 4.28% 수준의 높은 금리와 DXY 98.05의 달러 강세는 원자재 가격 상승을 제한하는 요소로 작용하고 있습니다. **주요 기회**: 구리 시장의 공급 부족 심화와 AI/전기차 수요 폭증이 가격 상승 동력을 제공. **핵심 리스크**: 연준의 매파적 스탠스 지속 시 달러 강세와 금리 상승이 원자재 전반에 하방 압력으로 작용할 가능성."
+    "content": "**2026년 4월 17일 상품시장 브리핑**\n\n뉴캐슬 석탄이 133.75달러로 상승세를 보이며 아시아 에너지 수요 회복 신호를 보내고 있고, 구리는 6.05달러 수준에서 중국 인프라 투자 기대감과 함께 안정적 흐름을 유지하고 있다. 달러지수 98.18, 10년물 국채수익률 4.31%의 조합은 연준의 통화정책 정상화가 진행되고 있음을 시사하며, VIX 17.94는 시장 불안감이 제한적임을 보여준다. \n\n**주요 리스크**: 미 금리 상승 지속 시 신흥국 자본유출과 달러 강세로 상품 수요 위축 가능성\n**핵심 기회**: 석탄 공급망 정상화 지연과 구리 재고 감소 트렌드가 지속될 경우 에너지/베이스메탈 롱 포지션 수익 확대 전망"
   }
 }
