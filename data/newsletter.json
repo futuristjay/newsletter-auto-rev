@@ -1,6 +1,6 @@
 {
-  "date": "2026-05-07",
-  "date_kr": "2026년 05월 07일",
+  "date": "2026-05-08",
+  "date_kr": "2026년 05월 08일",
   "ticker": [
     {
       "label": "Newcastle 6000",
@@ -12,93 +12,93 @@
     {
       "label": "Coking Coal",
       "type": "coal",
-      "value": 237.0,
+      "value": 240.5,
       "unit": "$/t",
       "change_pct": null
     },
     {
       "label": "Copper",
       "type": "market",
-      "value": 6.1915,
+      "value": 6.131,
       "unit": "¢/lb",
-      "change_pct": 4.37
+      "change_pct": 5.8
     },
     {
       "label": "Cameco",
       "type": "market",
-      "value": 123.76,
+      "value": 118.71,
       "unit": "$",
-      "change_pct": 8.29
+      "change_pct": -3.52
     },
     {
       "label": "삼성전자",
       "type": "market",
-      "value": 266000.0,
+      "value": 271500.0,
       "unit": "₩",
-      "change_pct": 18.49
+      "change_pct": 22.3
     },
     {
       "label": "LS Elec",
       "type": "market",
-      "value": 315500.0,
+      "value": 318500.0,
       "unit": "₩",
-      "change_pct": 23.48
+      "change_pct": 21.8
     },
     {
       "label": "Tesla",
       "type": "market",
-      "value": 398.73,
+      "value": 411.79,
       "unit": "$",
-      "change_pct": 6.96
+      "change_pct": 7.9
     },
     {
       "label": "NVIDIA",
       "type": "market",
-      "value": 207.83,
+      "value": 211.5,
       "unit": "$",
-      "change_pct": -0.68
+      "change_pct": 5.98
     },
     {
       "label": "DXY",
       "type": "market",
-      "value": 98.015,
+      "value": 98.257,
       "unit": "",
-      "change_pct": -0.2
+      "change_pct": -0.22
     },
     {
       "label": "WTI",
       "type": "market",
-      "value": 96.01,
+      "value": 97.47,
       "unit": "$",
-      "change_pct": -5.82
+      "change_pct": -8.41
     },
     {
       "label": "Gold",
       "type": "market",
-      "value": 4706.2,
+      "value": 4693.8,
       "unit": "$",
-      "change_pct": 1.65
+      "change_pct": 3.86
     },
     {
       "label": "US10Y",
       "type": "market",
-      "value": 4.356,
+      "value": 4.392,
       "unit": "%",
-      "change_pct": -0.77
+      "change_pct": 0.32
     },
     {
       "label": "VIX",
       "type": "market",
-      "value": 17.39,
+      "value": 17.08,
       "unit": "",
-      "change_pct": 2.96
+      "change_pct": 0.53
     },
     {
       "label": "KOSPI",
       "type": "market",
-      "value": 7384.56,
+      "value": 7490.05,
       "unit": "",
-      "change_pct": 11.63
+      "change_pct": 12.78
     }
   ],
   "coal": {
@@ -112,77 +112,77 @@
         "unit": "$/t"
       },
       "Coking Coal": {
-        "value": 237.0,
+        "value": 240.5,
         "unit": "$/t"
       }
     },
-    "headline": "**헤드라인**: Newcastle 석탄이 132달러/톤을 기록한 가운데 구리 4.37% 급등과 BHP 9.43% 상승이 원자재 전반의 강세를 견인하고 있습니다.",
-    "indonesia": "**인도네시아**: HBA 가격 정보가 공개되지 않은 상황에서 인도네시아 공급업체들의 가격 협상이 지연되고 있는 것으로 보입니다. 우기 시즌 종료와 함께 생산량 정상화가 진행되고 있으나, 중국의 수요 회복으로 수출 물량 확보에 어려움이 예상됩니다.",
-    "china": "**중국**: H주 지수가 8,800포인트를 상회하며 경기 회복 기대감이 확산되고 있어 석탄 수요 증가 요인으로 작용하고 있습니다. 제철소 가동률 상승과 발전용 석탄 소비 증가로 수입 석탄에 대한 의존도가 높아지고 있습니다. 정부의 탄소중립 정책에도 불구하고 단기적으로는 석탄 수요가 견조한 흐름을 보이고 있습니다.",
-    "india": "**인도**: 몬순 시즌을 앞두고 발전용 석탄 비축량 확보를 위한 수입이 증가하고 있습니다. 경제 성장률 회복과 함께 전력 수요가 확대되면서 해상 수입 석탄에 대한 의존도가 지속적으로 높아지고 있습니다.",
-    "outlook": "**전망**: WTI 96달러 수준의 고유가와 구리 강세가 지속되면서 1-2주 내 석탄 가격도 상승 압력을 받을 것으로 예상됩니다.",
-    "leading": "**선행지표**: 구리와 BHP는 글로벌 제조업 활동과 중국 경기 회복을 반영하는 대표 지표로, 이들의 상승은 철강 생산 증가와 연결되어 코킹콜 및 일반 석탄 수요 확대를 선도합니다."
+    "headline": "헤드라인",
+    "indonesia": "인도네시아",
+    "china": "중국",
+    "india": "인도",
+    "outlook": "전망",
+    "leading": "선행지표"
   },
   "copper": {
-    "price": 6.1915,
-    "chg": 4.37,
-    "bhp": 84.33,
-    "bhp_chg": 9.43,
+    "price": 6.131,
+    "chg": 5.8,
+    "bhp": 82.55,
+    "bhp_chg": 4.1,
     "text": ""
   },
   "uranium": {
-    "price": 123.76,
-    "chg": 8.29,
-    "ura": 58.26,
-    "ura_chg": 10.15,
+    "price": 118.71,
+    "chg": -3.52,
+    "ura": 56.26,
+    "ura_chg": -0.28,
     "text": ""
   },
   "samsung": {
-    "price": 266000.0,
-    "chg": 18.49,
-    "nvda": 207.83,
-    "nvda_chg": -0.68,
+    "price": 271500.0,
+    "chg": 22.3,
+    "nvda": 211.5,
+    "nvda_chg": 5.98,
     "text": ""
   },
   "lselectric": {
-    "price": 315500.0,
-    "chg": 23.48,
+    "price": 318500.0,
+    "chg": 21.8,
     "text": ""
   },
   "hyundai": {
-    "price": 550000.0,
-    "chg": 4.96,
-    "tesla": 398.73,
-    "tesla_chg": 6.96,
+    "price": 572000.0,
+    "chg": 3.06,
+    "tesla": 411.79,
+    "tesla_chg": 7.9,
     "text": ""
   },
   "kbeauty": {
-    "amore": 130000.0,
-    "amore_chg": -13.79,
-    "lghh": 267500.0,
-    "lghh_chg": 5.31,
+    "amore": 129900.0,
+    "amore_chg": -11.15,
+    "lghh": 275000.0,
+    "lghh_chg": 7.84,
     "text": ""
   },
   "teslatech": {
-    "tesla": 398.73,
-    "tesla_chg": 6.96,
-    "nvda": 207.83,
-    "nvda_chg": -0.68,
-    "msft": 413.96,
+    "tesla": 411.79,
+    "tesla_chg": 7.9,
+    "nvda": 211.5,
+    "nvda_chg": 5.98,
+    "msft": 420.77,
     "text": ""
   },
   "macro": {
-    "dxy": 98.015,
-    "wti": 96.01,
-    "gold": 4706.2,
-    "us10y": 4.356,
-    "vix": 17.39,
-    "kospi": 7384.56,
-    "sp500": 7365.12,
-    "hscei": 8800.75,
+    "dxy": 98.257,
+    "wti": 97.47,
+    "gold": 4693.8,
+    "us10y": 4.392,
+    "vix": 17.08,
+    "kospi": 7490.05,
+    "sp500": 7337.11,
+    "hscei": 8919.48,
     "text": ""
   },
   "miniReport": {
-    "content": "**2026년 5월 7일 상품시장 브리핑**\n\nNewcastle 석탄 $132/t, 코킹탄 $237/t로 계절적 수요 둔화세를 반영하고 있으며, 구리 $6.19는 중국 부동산 회복 기대감 속에서 상당한 지지를 받고 있다. 달러지수 98.02 수준의 약세와 10년물 4.36% 금리 환경에서 원자재 전반의 펀더멘털은 양호한 상황이다. \n\nBHP $84.33의 견조함은 철광석과 구리 복합 수요를 시사하며, VIX 17.39의 안정적 수준에서 위험자산 선호도가 높아지고 있다. **리스크**: 미중 무역분쟁 재점화 시 산업금속 수요 급감 우려. **기회**: 구리 공급 부족 심화로 $6.50+ 돌파 시 강세 모멘텀 가속화 전망."
+    "content": "**2026년 5월 8일 상품시장 브리핑**\n\n석탄 시장이 상당한 강세를 보이고 있으며, 특히 코킹콜 $240.5/t는 철강 수요 회복과 공급 제약을 반영하고 있습니다. 구리 $6.13은 여전히 고점권을 유지하며 글로벌 전력 인프라 투자 테마가 지속되고 있고, BHP $82.55는 원자재 슈퍼사이클 수혜를 받고 있습니다. \n\n달러지수 98.26과 10년물 4.39%는 상품 가격에 헤드윈드로 작용할 수 있으나, VIX 17.08의 안정적 수준과 주요 지수 강세가 리스크 선호를 뒷받침하고 있습니다. **주요 리스크**는 금리 상승에 따른 달러 강세 지속이며, **핵심 기회**는 아시아 제조업 회복에 따른 산업용 금속 수요 확대입니다."
   }
 }
