@@ -1,97 +1,90 @@
 {
-  "date": "2026-06-08",
-  "date_kr": "2026년 06월 08일",
+  "date": "2026-06-09",
+  "date_kr": "2026년 06월 09일",
   "ticker": [
-    {
-      "label": "Coking Coal",
-      "type": "coal",
-      "value": 249.0,
-      "unit": "$/t",
-      "change_pct": null
-    },
     {
       "label": "Copper",
       "type": "market",
-      "value": 6.257,
+      "value": 6.335,
       "unit": "¢/lb",
-      "change_pct": -5.9
+      "change_pct": -2.25
     },
     {
       "label": "Cameco",
       "type": "market",
-      "value": 103.44,
+      "value": 105.44,
       "unit": "$",
-      "change_pct": -8.22
+      "change_pct": -6.35
     },
     {
       "label": "삼성전자",
       "type": "market",
-      "value": 329000.0,
+      "value": 295500.0,
       "unit": "₩",
-      "change_pct": 9.85
+      "change_pct": -6.78
     },
     {
       "label": "LS Elec",
       "type": "market",
-      "value": 227000.0,
+      "value": 208000.0,
       "unit": "₩",
-      "change_pct": -7.91
+      "change_pct": -13.87
     },
     {
       "label": "Tesla",
       "type": "market",
-      "value": 391.0,
+      "value": 408.95,
       "unit": "$",
-      "change_pct": -10.28
+      "change_pct": -1.67
     },
     {
       "label": "NVIDIA",
       "type": "market",
-      "value": 205.1,
+      "value": 208.64,
       "unit": "$",
-      "change_pct": -2.86
+      "change_pct": -7.01
     },
     {
       "label": "DXY",
       "type": "market",
-      "value": 100.141,
+      "value": 100.0,
       "unit": "",
-      "change_pct": 0.93
+      "change_pct": 0.47
     },
     {
       "label": "WTI",
       "type": "market",
-      "value": 92.59,
+      "value": 91.41,
       "unit": "$",
-      "change_pct": -1.25
+      "change_pct": -4.8
     },
     {
       "label": "Gold",
       "type": "market",
-      "value": 4349.2,
+      "value": 4350.7,
       "unit": "$",
-      "change_pct": -3.12
+      "change_pct": -1.94
     },
     {
       "label": "US10Y",
       "type": "market",
-      "value": 4.536,
+      "value": 4.552,
       "unit": "%",
-      "change_pct": 1.36
+      "change_pct": 2.18
     },
     {
       "label": "VIX",
       "type": "market",
-      "value": 21.51,
+      "value": 18.92,
       "unit": "",
-      "change_pct": 34.02
+      "change_pct": 19.97
     },
     {
       "label": "KOSPI",
       "type": "market",
-      "value": 8160.59,
+      "value": 7484.41,
       "unit": "",
-      "change_pct": -0.3
+      "change_pct": -11.7
     }
   ],
   "coal": {
@@ -105,77 +98,77 @@
         "unit": "$/t"
       },
       "Coking Coal": {
-        "value": 249.0,
+        "value": null,
         "unit": "$/t"
       }
     },
-    "headline": "헤드라인",
-    "indonesia": "인도네시아",
-    "china": "중국",
-    "india": "인도",
-    "outlook": "전망",
-    "leading": "선행지표"
+    "headline": "헤드라인: Newcastle 석탄 가격이 0달러로 표시되는 가운데 구리 선물 2.25% 하락과 BHP 8.24% 급락이 원자재 시장 전반의 약세를 시사하고 있습니다.",
+    "indonesia": "인도네시아: HBA 가격 데이터가 확인되지 않는 상황에서 인도네시아 석탄 공급업체들의 가격 정책에 불확실성이 지속되고 있습니다. 6월 우기 시즌 진입으로 채굴 및 운송 활동이 제약받을 가능성이 높아 공급 차질이 우려됩니다.",
+    "china": "중국: 중국 H주 지수가 8,341포인트 수준을 유지하고 있으나 제조업 둔화로 전력 수요가 감소하며 석탄 재고 압박이 완화되고 있습니다. 정부의 청정에너지 전환 정책 강화로 석탄 의존도 축소 기조가 지속되고 있어 중장기 수요 전망이 불투명합니다.",
+    "india": "인도: 몬순 시즌 본격화로 석탄 운송 인프라에 차질이 예상되며 수입 석탄에 대한 의존도가 일시적으로 증가할 전망입니다. 전력 수요 증가에도 불구하고 국내 재생에너지 확대 정책으로 석탄 발전 비중 축소 압력이 가중되고 있습니다.",
+    "outlook": "전망: 1-2주 내 아시아 몬순 영향과 중국 제조업 둔화로 석탄 시장은 혼조세를 보일 것으로 예상됩니다.",
+    "leading": "선행지표: 구리는 글로벌 제조업과 인프라 수요를 반영하며 BHP는 주요 석탄 생산업체로서 두 지표 모두 에너지 수요 변화를 선제적으로 보여주는 핵심 선행지표입니다."
   },
   "copper": {
-    "price": 6.257,
-    "chg": -5.9,
-    "bhp": 82.72,
-    "bhp_chg": -6.96,
+    "price": 6.335,
+    "chg": -2.25,
+    "bhp": 83.7,
+    "bhp_chg": -8.24,
     "text": ""
   },
   "uranium": {
-    "price": 103.44,
-    "chg": -8.22,
-    "ura": 45.31,
-    "ura_chg": -10.74,
+    "price": 105.44,
+    "chg": -6.35,
+    "ura": 45.92,
+    "ura_chg": -9.14,
     "text": ""
   },
   "samsung": {
-    "price": 329000.0,
-    "chg": 9.85,
-    "nvda": 205.1,
-    "nvda_chg": -2.86,
+    "price": 295500.0,
+    "chg": -6.78,
+    "nvda": 208.64,
+    "nvda_chg": -7.01,
     "text": ""
   },
   "lselectric": {
-    "price": 227000.0,
-    "chg": -7.91,
+    "price": 208000.0,
+    "chg": -13.87,
     "text": ""
   },
   "hyundai": {
-    "price": 700000.0,
-    "chg": 3.4,
-    "tesla": 391.0,
-    "tesla_chg": -10.28,
+    "price": 639000.0,
+    "chg": -11.62,
+    "tesla": 408.95,
+    "tesla_chg": -1.67,
     "text": ""
   },
   "kbeauty": {
-    "amore": 107500.0,
-    "amore_chg": -6.85,
-    "lghh": 248000.0,
-    "lghh_chg": 0.0,
+    "amore": 105000.0,
+    "amore_chg": -8.77,
+    "lghh": 238000.0,
+    "lghh_chg": -3.84,
     "text": ""
   },
   "teslatech": {
-    "tesla": 391.0,
-    "tesla_chg": -10.28,
-    "nvda": 205.1,
-    "nvda_chg": -2.86,
-    "msft": 416.67,
+    "tesla": 408.95,
+    "tesla_chg": -1.67,
+    "nvda": 208.64,
+    "nvda_chg": -7.01,
+    "msft": 411.74,
     "text": ""
   },
   "macro": {
-    "dxy": 100.141,
-    "wti": 92.59,
-    "gold": 4349.2,
-    "us10y": 4.536,
-    "vix": 21.51,
-    "kospi": 8160.59,
-    "sp500": 7383.74,
-    "hscei": 8436.63,
+    "dxy": 100.0,
+    "wti": 91.41,
+    "gold": 4350.7,
+    "us10y": 4.552,
+    "vix": 18.92,
+    "kospi": 7484.41,
+    "sp500": 7405.73,
+    "hscei": 8341.36,
     "text": ""
   },
   "miniReport": {
-    "content": "**2026년 6월 8일 시장 요약**\n\n석탄 시장에서 Newcastle Coal이 0달러를 기록하며 극도의 약세를 보이는 반면, 코킹콜은 249달러로 상대적 안정세를 유지하고 있어 원료탄 수급 불균형이 심화되고 있습니다. 구리 6.26달러와 BHP 82.72달러의 조합은 베이스메탈 섹터의 견조한 펀더멘털을 시사하며, 반도체 대장주인 NVIDIA(205.10달러)와 삼성전자(329,000원)의 동반 강세가 AI 테마의 지속적 모멘텀을 보여줍니다.\n\nVIX 21.51과 미 10년물 4.54% 수준은 시장 불확실성이 고조된 상황에서도 KOSPI 8,160대와 S&P 7,383선 유지는 상당히 견고한 흐름입니다. **주요 리스크**는 석탄 가격 붕괴가 에너지 전환 가속화 신호일 가능성이며, **핵심 기회**는 구리를 중심으한 산업금속 강세가 글로벌 인프라 투자 확대를 반영할 수 있다는 점입니다."
+    "content": "**2026년 6월 9일 상품시장 브리핑**\n\n오늘 상품시장은 구리 $6.33/lb로 산업금속이 견조한 흐름을 보이는 가운데, 뉴캐슬 석탄 가격 데이터 공백이 에너지 섹터 불확실성을 시사하고 있다. DXY 100.00 중립선과 VIX 18.92의 적정 변동성 수준에서 리스크자산 선호도가 균형을 이루고 있으며, KOSPI 7,484와 S&P 7,405의 동조화된 상승세가 글로벌 위험선호 심리를 뒷받침한다. \n\nUS10Y 4.55% 고금리 환경에서도 NVIDIA $208.64, 삼성전자 29만원대 강세가 AI 테마 지속력을 보여주고 있다. **리스크**: 석탄시장 데이터 부재로 인한 에너지 공급망 가시성 저하, **기회**: 구리 강세 지속 시 산업금속 포트폴리오 확대 검토 필요."
   }
 }
