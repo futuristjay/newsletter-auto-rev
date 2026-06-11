@@ -1,90 +1,90 @@
 {
-  "date": "2026-06-11",
-  "date_kr": "2026년 06월 11일",
+  "date": "2026-06-12",
+  "date_kr": "2026년 06월 12일",
   "ticker": [
     {
       "label": "Copper",
       "type": "market",
-      "value": 6.177,
+      "value": 6.392,
       "unit": "¢/lb",
-      "change_pct": -1.39
+      "change_pct": 0.98
     },
     {
       "label": "Cameco",
       "type": "market",
-      "value": 95.03,
+      "value": 98.97,
       "unit": "$",
-      "change_pct": -17.05
+      "change_pct": -13.2
     },
     {
       "label": "삼성전자",
       "type": "market",
-      "value": 302500.0,
+      "value": 299000.0,
       "unit": "₩",
-      "change_pct": -16.09
+      "change_pct": -14.94
     },
     {
       "label": "LS Elec",
       "type": "market",
-      "value": 236000.0,
+      "value": 229500.0,
       "unit": "₩",
-      "change_pct": -2.28
+      "change_pct": -4.18
     },
     {
       "label": "Tesla",
       "type": "market",
-      "value": 381.59,
+      "value": 399.15,
       "unit": "$",
-      "change_pct": -9.94
+      "change_pct": -4.61
     },
     {
       "label": "NVIDIA",
       "type": "market",
-      "value": 200.42,
+      "value": 204.87,
       "unit": "$",
-      "change_pct": -6.67
+      "change_pct": -6.31
     },
     {
       "label": "DXY",
       "type": "market",
-      "value": 99.91,
+      "value": 99.95,
       "unit": "",
-      "change_pct": -0.16
+      "change_pct": -0.1
     },
     {
       "label": "WTI",
       "type": "market",
-      "value": 93.49,
+      "value": 85.78,
       "unit": "$",
-      "change_pct": 3.26
+      "change_pct": -6.05
     },
     {
       "label": "Gold",
       "type": "market",
-      "value": 4055.5,
+      "value": 4249.9,
       "unit": "$",
-      "change_pct": -6.49
+      "change_pct": -1.98
     },
     {
       "label": "US10Y",
       "type": "market",
-      "value": 4.542,
+      "value": 4.463,
       "unit": "%",
-      "change_pct": 1.45
+      "change_pct": -1.61
     },
     {
       "label": "VIX",
       "type": "market",
-      "value": 22.22,
+      "value": 19.44,
       "unit": "",
-      "change_pct": 44.29
+      "change_pct": -9.62
     },
     {
       "label": "KOSPI",
       "type": "market",
-      "value": 7730.82,
+      "value": 7763.95,
       "unit": "",
-      "change_pct": -12.16
+      "change_pct": -10.13
     }
   ],
   "coal": {
@@ -110,65 +110,65 @@
     "leading": "선행지표"
   },
   "copper": {
-    "price": 6.177,
-    "chg": -1.39,
-    "bhp": 82.95,
-    "bhp_chg": -8.7,
+    "price": 6.392,
+    "chg": 0.98,
+    "bhp": 88.0,
+    "bhp_chg": -0.88,
     "text": ""
   },
   "uranium": {
-    "price": 95.03,
-    "chg": -17.05,
-    "ura": 42.35,
-    "ura_chg": -15.96,
+    "price": 98.97,
+    "chg": -13.2,
+    "ura": 44.83,
+    "ura_chg": -10.84,
     "text": ""
   },
   "samsung": {
-    "price": 302500.0,
-    "chg": -16.09,
-    "nvda": 200.42,
-    "nvda_chg": -6.67,
+    "price": 299000.0,
+    "chg": -14.94,
+    "nvda": 204.87,
+    "nvda_chg": -6.31,
     "text": ""
   },
   "lselectric": {
-    "price": 236000.0,
-    "chg": -2.28,
+    "price": 229500.0,
+    "chg": -4.18,
     "text": ""
   },
   "hyundai": {
-    "price": 602000.0,
-    "chg": -17.42,
-    "tesla": 381.59,
-    "tesla_chg": -9.94,
+    "price": 597000.0,
+    "chg": -14.71,
+    "tesla": 399.15,
+    "tesla_chg": -4.61,
     "text": ""
   },
   "kbeauty": {
     "amore": 111800.0,
-    "amore_chg": 2.29,
-    "lghh": 234500.0,
-    "lghh_chg": -3.89,
+    "amore_chg": 0.54,
+    "lghh": 238500.0,
+    "lghh_chg": -6.1,
     "text": ""
   },
   "teslatech": {
-    "tesla": 381.59,
-    "tesla_chg": -9.94,
-    "nvda": 200.42,
-    "nvda_chg": -6.67,
-    "msft": 397.36,
+    "tesla": 399.15,
+    "tesla_chg": -4.61,
+    "nvda": 204.87,
+    "nvda_chg": -6.31,
+    "msft": 390.34,
     "text": ""
   },
   "macro": {
-    "dxy": 99.91,
-    "wti": 93.49,
-    "gold": 4055.5,
-    "us10y": 4.542,
-    "vix": 22.22,
-    "kospi": 7730.82,
-    "sp500": 7266.99,
-    "hscei": 8318.73,
+    "dxy": 99.95,
+    "wti": 85.78,
+    "gold": 4249.9,
+    "us10y": 4.463,
+    "vix": 19.44,
+    "kospi": 7763.95,
+    "sp500": 7394.3,
+    "hscei": 8217.08,
     "text": ""
   },
   "miniReport": {
-    "content": "**2026년 6월 11일 상품시장 브리핑**\n\n석탄 가격 데이터 부재로 에너지 섹터 불확실성이 지속되는 가운데, 구리는 $6.18로 상대적 안정세를 보이며 BHP($82.95)의 견조한 흐름과 맥을 같이하고 있습니다. VIX 22.22와 미 10년물 4.54% 수준은 여전히 높은 변동성 환경을 시사하며, DXY 99.91의 달러 강세가 원자재 전반에 하방 압력으로 작용하고 있습니다. \n\nKOSPI 7,730대와 S&P500 7,266 수준에서 주식시장이 고점권을 유지하는 것은 리스크온 심리의 잠재력을 보여주나, 삼성전자 30만원대 돌파가 반도체 슈퍼사이클 기대감을 반영하고 있습니다. \n\n**주요 기회**: NVIDIA $200 돌파와 AI 관련 원자재(리튬, 희토류) 연관성 주목  \n**핵심 리스크**: 높은 금리 환경에서 달러 강세 지속 시 신흥국 원자재 수요 위축 우려"
+    "content": "오늘 상품시장은 구리 $6.39로 여전히 강세를 유지하며 글로벌 인프라 수요와 전기차 전환 테마가 지속되고 있다. 석탄 데이터 부재로 에너지 섹터 판단이 제한적이나, US10Y 4.46% 수준에서 달러지수 99.95는 상품 전반에 중립적 환경을 제공하고 있다. \n\n**주요 기회**: 구리-테크주(NVIDIA $204.87) 동반 강세로 AI 인프라 구축 수혜 지속 가능성이 높다.\n\n**핵심 리스크**: VIX 19.44 상승과 높은 금리 수준이 상품 투자 자금 유출 압력으로 작용할 수 있어 포지션 관리에 주의가 필요하다."
   }
 }
